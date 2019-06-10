@@ -116,7 +116,7 @@ input, select, textarea {
 /* Type */
 
 	html {
-		font-size: 16pt;
+		font-size: 14pt;
 	}
 
 		@media screen and (max-width: 1680px) {
@@ -151,7 +151,7 @@ input, select, textarea {
 		font-family: "Merriweather", Georgia, serif;
 		font-weight: 300;
 		font-size: 1rem;
-		line-height: 2.375;
+		line-height: 2;
 	}
 
 	a {
@@ -186,7 +186,7 @@ input, select, textarea {
 		line-height: 1.5;
 		letter-spacing: 0.075em;
 		text-transform: uppercase;
-		margin: 0 0 1rem 0;
+		margin: 0;
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -202,9 +202,9 @@ input, select, textarea {
 	}
 
 	h2 {
-		font-size: 1.75rem;
+		font-size: 2rem;
 		line-height: 1.3;
-		margin: 0 0 1.5rem 0;
+		margin: 0 0 0.25rem 0;
 	}
 
 	h3 {
@@ -2321,7 +2321,7 @@ input, select, textarea {
 
 		.image.main {
 			display: block;
-			margin: 4rem 0;
+			margin: 2rem 0;
 			width: 100%;
 		}
 
@@ -2336,11 +2336,11 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			.image.fit {
-				margin: 2rem 0;
+				margin: 1rem 0;
 			}
 
 			.image.main {
-				margin: 2rem 0;
+				margin: 1rem 0;
 			}
 
 		}
@@ -2628,7 +2628,7 @@ input, select, textarea {
 		}
 
 		header.major {
-			margin: 0 0 4rem 0;
+			margin: 0 0 1.5rem 0;
 			text-align: center;
 		}
 
@@ -3312,7 +3312,7 @@ input, select, textarea {
 		}
 
 		#main > .post {
-			padding: 8rem 8rem 6rem 8rem ;
+			padding: 2.5rem 8rem 2.5rem 8rem ;
 		}
 
 			#main > .post header.major > .date {
@@ -3320,7 +3320,7 @@ input, select, textarea {
 			}
 
 			#main > .post header.major > h1, #main > .post header.major h2 {
-				font-size: 4rem;
+				font-size: 2rem;
 				line-height: 1.1;
 				margin: 0 0 2rem 0;
 			}
@@ -3390,7 +3390,7 @@ input, select, textarea {
 			}
 
 			#main > .posts > * {
-				padding: 4rem;
+				padding: 2rem 3rem 2rem 3rem;
 				width: 50%;
 			}
 
