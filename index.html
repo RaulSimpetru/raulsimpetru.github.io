@@ -3,7 +3,7 @@
 	<head>
 		<title>Portfolio - Raul S.</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
@@ -14,9 +14,7 @@
 					<div id="intro">
 						<h1>Raul C. Sîmpetru</h1>
 						<h3>"I do not know everything; still many things I understand." (Johann W. von Goethe, Faust I)</h3>
-						<p>I am always looking for new and interesting opportunities because one can not know what one does not know<br /><br />
-						Github <a href="https://github.com/RaulSimpetru" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a> 
-						&nbsp; Email <a href="mailto:raul.simpetru@fau.de" class="icon far fa-envelope"><span class="label">Email</span></a></p>
+						<p>I am always looking for new and interesting opportunities because one can not know what one does not know</p>
 						<div class=language>
 							<p class=languageColumExtra>EN</p>
 							<p class=languageColum>&nbsp;|&nbsp;</p>
@@ -28,6 +26,19 @@
 					<header id="header">
 						<a href="https://github.com/RaulSimpetru" target="_blank" class="logo">Projects</a>
 					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li class="active"><a href="index.html">Data Visualisation</a></li>
+							<li><a href="MachineLearning-EN.html">Machine Learning</a></li>
+							<li><a href="Java-EN.html">Java Projects</a></li>
+						</ul>
+						<ul class="icons">
+							<li>Github<a href="https://github.com/RaulSimpetru" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li>Email<a href="mailto:raul.simpetru@fau.de" class="icon far fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
 
 				<!-- Main -->
 					<div id="main">
@@ -45,30 +56,6 @@
 									<p>For this project, I tried to recreate and display a brain in 3D space using <a href="https://www.opengl.org/" target="_blank"> OpenGL</a> from a lot of 2D brain slices from this <a href="https://www.kaggle.com/mateuszbuda/lgg-mri-segmentation" target="_blank"> kaggle dataset</a>.<br /><br /> From the slices, I get the biggest contour possible using <a href="https://opencv.org/" target="_blank"> OpenCV</a> and turn every 2D contour in a 3D slice. <br /><br /> By stacking them over each other I was able to display the reconstructed brain.</p>
 									<ul class="actions special">
 										<li><a href="https://github.com/RaulSimpetru/BrainVisualiser" target="_blank" class="button large">See project on Github</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="https://www.kaggle.com/raulcsimpetru/vgg16-binary-classification" target="_blank">VGG16 Binary Classification</a></h2>
-										<h3>Language: Python</h3>
-									</header>
-									<a href="https://www.kaggle.com/raulcsimpetru/vgg16-binary-classification" target="_blank" class="image main"><img src="images/BrainTumor.png" alt="" /></a>
-									<p>This is the first <a href="https://www.quora.com/What-is-a-kernel-in-Kaggle" target="_blank"> kaggle kernel</a> I have ever made. <br /><br /> Its goal was to be able to distinguish between MRI scans with or without a brain tumor. <br /> In the end, I was able to achieve 85% test accuracy.</p>
-									<ul class="actions special">
-										<li><a href="https://www.kaggle.com/raulcsimpetru/vgg16-binary-classification" target="_blank" class="button large">See project on Kaggle</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="https://github.com/RaulSimpetru/Style-Transfer" target="_blank">Style-Transfer</a></h2>
-										<h3>Language: Python</h3>
-									</header>
-									<a href="images/StyleTransfer.jpg" target="_blank" class="image main"><img src="images/StyleTransfer.jpg" alt="" /></a>
-									<p>This script has been inspired by this <a href="https://www.tensorflow.org/beta/tutorials/generative/style_transfer" target="_blank">tutorial</a>.
-									<br />It allows for command line arguments and also for saving your new image (this didn't work for me in the code provided in the <a href="https://www.tensorflow.org/beta/tutorials/generative/style_transfer" target="_blank">tutorial</a>).</br>
-									This experiment helped me understand neural networks better because it was something else rather than classification.</p>
-									<ul class="actions special">
-										<li><a href="https://github.com/RaulSimpetru/Style-Transfer" target="_blank" class="button large">See project on Github</a></li>
 									</ul>
 								</article>
 								<article>
@@ -120,33 +107,7 @@
 									</ul>
 								</article>
 								<article>
-									<header>
-										<h2><a href="https://github.com/RaulSimpetru/MoodTrackerApp" target="_blank">Mood Tracking App for Android</a></h2>
-										<h3>Language: Java</h3>
-									</header>
-									<a href="images/MoodTracker.jpg" target="_blank" class="image fit"><img src="images/MoodTracker.jpg" alt="" /></a>
-									<p>A basic android mood tracking app.<br />
-									You can select between 10 moods and export the whole year as a JPEG to print it for a poster or share it or whatever.</p>
-									<ul class="actions special">
-										<li><a href="https://github.com/RaulSimpetru/MoodTrackerApp" target="_blank" class="button large">See project on Github</a></li>
-									</ul>
-								</article>
-								<article>
-									<header>
-										<h2><a href="https://github.com/RaulSimpetru/Hangman" target="_blank">Hangman</a></h2>
-										<h3>Language: Java</h3>
-									</header>
-									<a href="images/Hangman.gif" target="_blank" class="image fit"><img src="images/Hangman.gif" alt="" /></a>
-									<p>A Java game I made for my mother who works in an old people's home.<br />
-									This hangman app is supposed to make the old people engage in mental activity.</p>
-									<ul class="actions special">
-										<li><a href="https://github.com/RaulSimpetru/Hangman" target="_blank" class="button">See project on Github</a></li>
-									</ul>
-								</article>
-								<article>
 									<h2>A new Project will be here</h2>
-								</article>
-								<article>
 								</article>
 							</section>
 					</div>
