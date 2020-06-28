@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Portfolio - Raul S.</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Raul C. Sîmpetru</h1>
+						<h3>"I do not know everything; still many things I understand." (Johann W. von Goethe, Faust I)</h3>
+						<p>I am always looking for new and interesting opportunities because one can not know what one does not know</p>
+						<div class=language>
+							<p class=languageColumExtra>EN</p>
+							<p class=languageColum>&nbsp;|&nbsp;</p>
+							<p class=languageColumExtra><a href="de.html" class=toSelect>DE</a></p>
+						</div>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="https://github.com/RaulSimpetru" target="_blank" class="logo">Projects</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Data Visualisation</a></li>
+							<li><a href="MachineLearning-EN.html">Machine Learning</a></li>
+							<li class="active"><a href="Electronics-EN.html">Electronics</a></li>
+							<li><a href="Java-EN.html">Java Projects</a></li>
+						</ul>
+						<ul class="icons">
+							<li>Github<a href="https://github.com/RaulSimpetru" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li>Email<a href="mailto:raul.simpetru@fau.de" class="icon far fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Featured Post -->
+						<section class="post">
+								<header class="major">
+									<h2>Audio Amplifier using an LM386</h2>
+								</header>
+								<p>
+									This project serves as a stepping stone for a future project/ birthday gift for a fellow student.<br /><br />
+									I started to study electronics at university. The only problem is that you are supposed to learn all the theory to even be allowed to do a normal circuit (not some pointless resistor capacitor useless thing). <br />
+									This project basically proves this idea wrong. <br /><br />
+									Now besides feeding my ego I learned a lot about how signals are amplified and I basically had a real reason to apply the theory that I learned. <br /><br />
+									The following schematic shows the basic amplifier I designed using an LM386 and an Arduino Nano + the C++ code that I wrote for testing.
+								</p>
+								<div class="image main"><img src="images/speaker.png" alt="" /></div>
+								<pre><code>#include &lt;SimpleSDAudio.h&gt;
+
+void setup()
+{
+  Serial.begin(9600);
+  Serial.print(F("\nStarting SD card"));
+
+  // SD card standard CS pin is pin 4
+  // To change this uncoment and adapt folowing line
+  // SdPlay.setSDCSPin(10);
+
+  if (!SdPlay.init(SSDA_MODE_HALFRATE | SSDA_MODE_MONO | SSDA_MODE_AUTOWORKER)) {
+    Serial.println(F("initialization failed. Error: "));
+    Serial.print(SdPlay.getLastError());
+    while (1);
+  }
+
+  if (!SdPlay.setFile("Test2.AFM")) {
+    Serial.println(F("File not found. Error: "));
+    Serial.print(SdPlay.getLastError());
+    while (1);
+  }
+  
+  SdPlay.play();
+  while (!SdPlay.isStopped()) {
+    ;
+  }
+  SdPlay.deInit();
+}
+
+void loop() {}</code></pre>
+						</section>
+
+						<section class="post">
+								<header class="major">
+									<h2>A new Project will be here</h2>
+								</header>
+						</section>
+						<!-- Posts -->
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+							<section class="alt">
+								<h3>Github</h3>
+								<p><a href="https://github.com/RaulSimpetru" target="_blank">https://github.com/RaulSimpetru</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="mailto:raul.simpetru@fau.de">raul.simpetru@fau.de</a></p>
+							</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
