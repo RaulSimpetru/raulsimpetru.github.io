@@ -47,6 +47,188 @@
 						<!-- Featured Post -->
 						<section class="post">
 								<header class="major">
+									<h2>Quokka >>> Rubber Duck</h2>
+								</header>
+								<p>
+									Designed as the ultimate programer companion this project is 1000 times better than any rubber duck you can find.<br/><br/>
+
+									The idea behind this project was to make a funny companion that will play a funny song, make a snobby remark, or a compliment when it hears the sound of stress or anger that a programmer naturally feels when doing his job.<br/><br/>
+
+									It is well known that every personal project should be very cool but should also teach you something new that can be used later, thus increasing the coolness of future projects exponentially.<br/><br/>
+
+									This project is no different because through it I learned what the limitations of FDM 3D printing are (I had to start the printing process a few too many times), how to take meaningful real-life measurements while making sure that everything fits correctly, and also how to change and manipulate the audio files to be played by this rather crude but very functional speaker circuit made in a past project. This has also been the first time I decided to use a prototyping board instead of a breadboard as I felt it will ensure more protection against occasional human randomness (e.g. drop from 1 m).<br/><br/>
+
+									<div class="box alt">
+										<div class="row gtr-50 gtr-uniform">
+											<div class="col-2"><span class="image fit"><a href="images/quokka/1.jpeg" target="_blank" class="image fit"><img src="images/quokka/1.jpeg" alt="" /></a></span></div>
+											<div class="col-2"><span class="image fit"><a href="images/quokka/7.jpeg" target="_blank" class="image fit"><img src="images/quokka/7.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/2.jpeg" target="_blank" class="image fit"><img src="images/quokka/2.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/3.jpeg" target="_blank" class="image fit"><img src="images/quokka/3.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/4.jpeg" target="_blank" class="image fit"><img src="images/quokka/4.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/6.jpeg" target="_blank" class="image fit"><img src="images/quokka/6.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/5.jpeg" target="_blank" class="image fit"><img src="images/quokka/5.jpeg" alt="" /></a></span></div>
+											
+										</div>
+									</div>
+
+									The following pseudo schematic shows how the quokka has been assembled internally. I opted for not doing a correct schematic as I think it is way to simple to wire up by using the script as a reference and a drop of intelligence along with it.  
+								</p>
+								<div class="image main"><img src="images/assembly.png" alt="" /></div>
+								<h3>Arduino Code:</h3>
+								<pre><code>#include  &lt;SimpleSDAudio.h&gt;
+
+const int microphonePin = A2;
+const int threshold = 235;
+
+const int red_light_pin = 6;
+const int green_light_pin = 4;
+const int blue_light_pin = 2;
+
+void setup()
+{
+  randomSeed(analogRead(1));
+
+  pinMode(microphonePin, INPUT);
+  pinMode(10, OUTPUT);
+  digitalWrite(10, HIGH);
+  Serial.begin(9600);
+  Serial.print(F("\nStarting SD card\n"));
+
+  SdPlay.setSDCSPin(10);
+
+  if (!SdPlay.init(SSDA_MODE_FULLRATE | SSDA_MODE_MONO | SSDA_MODE_AUTOWORKER)) {
+    Serial.println(F("initialization failed. Error: "));
+    Serial.print(SdPlay.getLastError());
+    while (1);
+  }
+
+  SdPlay.setFile("1.AFM");
+  SdPlay.play();
+  while (!SdPlay.isStopped()) {;}
+
+  RGB_Test();
+
+  SdPlay.setFile("3.AFM");
+  SdPlay.play();
+  while (!SdPlay.isStopped()) {
+    ;
+  }
+}
+
+void loop() {
+  int soundlvl = analogRead(microphonePin);
+  Serial.println(soundlvl);
+  if (soundlvl > threshold) {
+    int randomNr = (int) random(4, 10 + 1);
+    playSong(randomNr);
+  }
+}
+
+void RGB_color(int red_light_value, int green_light_value, int blue_light_value) {
+  analogWrite(red_light_pin, red_light_value);
+  analogWrite(green_light_pin, green_light_value);
+  analogWrite(blue_light_pin, blue_light_value);
+}
+
+void RGB_Test() {
+  RGB_color(255, 0, 0); // Red
+  delay(500);
+  RGB_color(0, 255, 0); // Green
+  delay(500);
+  RGB_color(0, 0, 255); // Blue
+  delay(500);
+  RGB_color(255, 255, 125); // Raspberry
+  delay(500);
+  RGB_color(0, 255, 255); // Cyan
+  delay(500);
+  RGB_color(255, 0, 255); // Magenta
+  delay(500);
+  RGB_color(255, 255, 0); // Yellow
+  delay(500);
+  RGB_color(255, 255, 255); // White
+  delay(500);
+  RGB_color(0, 0, 0);
+}
+
+void playSong(int fileNr) {
+  String temp = String(fileNr) + ".AFM";
+  char* song = new char[temp.length()];
+  temp.toCharArray(song, temp.length() + 1);
+
+  Serial.println(song);
+  if (!SdPlay.setFile(song)) {
+    Serial.println(F("File not found. Error: "));
+    while (1);
+  }
+
+  SdPlay.play();
+
+  switch (fileNr) {
+    case 4: {
+        RGB_color(0, 0, 255);
+        delay(500);
+        RGB_color(0, 0, 0);
+        delay(500);
+        RGB_color(0, 0, 255);
+      }
+      break;
+    case 5: {
+        RGB_color(0, 255, 0);
+        delay(500);
+        RGB_color(0, 0, 0);
+        delay(500);
+        RGB_color(0, 255, 0);
+      }
+      break;
+    case 6: {
+        RGB_color(255, 105, 180);
+      }
+      break;
+    case 7: {
+        while (SdPlay.isPlaying()) {
+          RGB_color(0, 0, 0);
+          delay(250);
+          RGB_color(255, 0, 0);
+          delay(250);
+        }
+      }
+      break;
+    case 8: {
+        RGB_color(255, 0, 0);
+        delay(500);
+        RGB_color(0, 0, 0);
+        delay(500);
+        RGB_color(255, 0, 0);
+      }
+      break;
+    case 9: {
+        while (SdPlay.isPlaying()) {
+          RGB_color(0, 0, 0);
+          delay(250);
+          RGB_color(255, 0, 255);
+          delay(250);
+        }
+      }
+      break;
+    case 10: {
+        while (SdPlay.isPlaying()) {
+          RGB_color(0, 0, 0);
+          delay(250);
+          RGB_color(255, 255, 0);
+          delay(250);
+        }
+      }
+      break;
+  }
+
+  while (!SdPlay.isStopped()) {;}
+  delay(2500);
+  RGB_color(0, 0, 0);
+}</code></pre>
+						</section>
+
+						<section class="post">
+								<header class="major">
 									<h2>Monitor Auto Rotator using <a href="https://entechtaiwan.com/util/irotate.shtm" target="_blank">IRotate</a></h2>
 								</header>
 								<p>
