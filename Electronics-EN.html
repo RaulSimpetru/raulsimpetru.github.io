@@ -1,0 +1,495 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Portfolio - Raul S.</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Raul C. Sîmpetru</h1>
+						<h3>"I do not know everything; still many things I understand." (Johann W. von Goethe, Faust I)</h3>
+						<p>I am always looking for new and interesting opportunities because one can not know what one does not know</p>
+						<div class=language>
+							<p class=languageColumExtra>EN</p>
+							<p class=languageColum>&nbsp;|&nbsp;</p>
+							<p class=languageColumExtra><a href="de.html" class=toSelect>DE</a></p>
+						</div>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="https://github.com/RaulSimpetru" target="_blank" class="logo">Projects</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Data Visualisation</a></li>
+							<li><a href="MachineLearning-EN.html">Machine Learning</a></li>
+							<li class="active"><a href="Electronics-EN.html">Electronics</a></li>
+							<li><a href="Java-EN.html">Java Projects</a></li>
+						</ul>
+						<ul class="icons">
+							<li>Github<a href="https://github.com/RaulSimpetru" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li>Email<a href="mailto:raul.simpetru@fau.de" class="icon far fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Featured Post -->
+						<section class="post">
+								<header class="major">
+									<h2>Quokka >>> Rubber Duck</h2>
+								</header>
+								<p>
+									Designed as the ultimate programer companion this project is 1000 times better than any rubber duck you can find.<br/><br/>
+
+									The idea behind this project was to make a funny companion that will play a funny song, make a snobby remark, or a compliment when it hears the sound of stress or anger that a programmer naturally feels when doing his job.<br/><br/>
+
+									It is well known that every personal project should be very cool but should also teach you something new that can be used later, thus increasing the coolness of future projects exponentially.<br/><br/>
+
+									This project is no different because through it I learned what the limitations of FDM 3D printing are (I had to start the printing process a few too many times), how to take meaningful real-life measurements while making sure that everything fits correctly, and also how to change and manipulate the audio files to be played by this rather crude but very functional speaker circuit made in a past project. This has also been the first time I decided to use a prototyping board instead of a breadboard as I felt it will ensure more protection against occasional human randomness (e.g. drop from 1 m).<br/><br/>
+
+									<div class="box alt">
+										<div class="row gtr-50 gtr-uniform">
+											<div class="col-2"><span class="image fit"><a href="images/quokka/1.jpeg" target="_blank" class="image fit"><img src="images/quokka/1.jpeg" alt="" /></a></span></div>
+											<div class="col-2"><span class="image fit"><a href="images/quokka/7.jpeg" target="_blank" class="image fit"><img src="images/quokka/7.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/2.jpeg" target="_blank" class="image fit"><img src="images/quokka/2.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/3.jpeg" target="_blank" class="image fit"><img src="images/quokka/3.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/4.jpeg" target="_blank" class="image fit"><img src="images/quokka/4.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/6.jpeg" target="_blank" class="image fit"><img src="images/quokka/6.jpeg" alt="" /></a></span></div>
+											<div class="col-4"><span class="image fit"><a href="images/quokka/5.jpeg" target="_blank" class="image fit"><img src="images/quokka/5.jpeg" alt="" /></a></span></div>
+											
+										</div>
+									</div>
+
+									The following pseudo schematic shows how the quokka has been assembled internally. I opted for not doing a correct schematic as I think it is way to simple to wire up by using the script as a reference and a drop of intelligence along with it.  
+								</p>
+								<div class="image main"><img src="images/assembly.png" alt="" /></div>
+								<h3>Arduino Code:</h3>
+								<pre><code>#include  &lt;SimpleSDAudio.h&gt;
+
+const int microphonePin = A2;
+const int threshold = 235;
+
+const int red_light_pin = 6;
+const int green_light_pin = 4;
+const int blue_light_pin = 2;
+
+void setup()
+{
+  randomSeed(analogRead(1));
+
+  pinMode(microphonePin, INPUT);
+  pinMode(10, OUTPUT);
+  digitalWrite(10, HIGH);
+  Serial.begin(9600);
+  Serial.print(F("\nStarting SD card\n"));
+
+  SdPlay.setSDCSPin(10);
+
+  if (!SdPlay.init(SSDA_MODE_FULLRATE | SSDA_MODE_MONO | SSDA_MODE_AUTOWORKER)) {
+    Serial.println(F("initialization failed. Error: "));
+    Serial.print(SdPlay.getLastError());
+    while (1);
+  }
+
+  SdPlay.setFile("1.AFM");
+  SdPlay.play();
+  while (!SdPlay.isStopped()) {;}
+
+  RGB_Test();
+
+  SdPlay.setFile("3.AFM");
+  SdPlay.play();
+  while (!SdPlay.isStopped()) {
+    ;
+  }
+}
+
+void loop() {
+  int soundlvl = analogRead(microphonePin);
+  Serial.println(soundlvl);
+  if (soundlvl > threshold) {
+    int randomNr = (int) random(4, 10 + 1);
+    playSong(randomNr);
+  }
+}
+
+void RGB_color(int red_light_value, int green_light_value, int blue_light_value) {
+  analogWrite(red_light_pin, red_light_value);
+  analogWrite(green_light_pin, green_light_value);
+  analogWrite(blue_light_pin, blue_light_value);
+}
+
+void RGB_Test() {
+  RGB_color(255, 0, 0); // Red
+  delay(500);
+  RGB_color(0, 255, 0); // Green
+  delay(500);
+  RGB_color(0, 0, 255); // Blue
+  delay(500);
+  RGB_color(255, 255, 125); // Raspberry
+  delay(500);
+  RGB_color(0, 255, 255); // Cyan
+  delay(500);
+  RGB_color(255, 0, 255); // Magenta
+  delay(500);
+  RGB_color(255, 255, 0); // Yellow
+  delay(500);
+  RGB_color(255, 255, 255); // White
+  delay(500);
+  RGB_color(0, 0, 0);
+}
+
+void playSong(int fileNr) {
+  String temp = String(fileNr) + ".AFM";
+  char* song = new char[temp.length()];
+  temp.toCharArray(song, temp.length() + 1);
+
+  Serial.println(song);
+  if (!SdPlay.setFile(song)) {
+    Serial.println(F("File not found. Error: "));
+    while (1);
+  }
+
+  SdPlay.play();
+
+  switch (fileNr) {
+    case 4: {
+        RGB_color(0, 0, 255);
+        delay(500);
+        RGB_color(0, 0, 0);
+        delay(500);
+        RGB_color(0, 0, 255);
+      }
+      break;
+    case 5: {
+        RGB_color(0, 255, 0);
+        delay(500);
+        RGB_color(0, 0, 0);
+        delay(500);
+        RGB_color(0, 255, 0);
+      }
+      break;
+    case 6: {
+        RGB_color(255, 105, 180);
+      }
+      break;
+    case 7: {
+        while (SdPlay.isPlaying()) {
+          RGB_color(0, 0, 0);
+          delay(250);
+          RGB_color(255, 0, 0);
+          delay(250);
+        }
+      }
+      break;
+    case 8: {
+        RGB_color(255, 0, 0);
+        delay(500);
+        RGB_color(0, 0, 0);
+        delay(500);
+        RGB_color(255, 0, 0);
+      }
+      break;
+    case 9: {
+        while (SdPlay.isPlaying()) {
+          RGB_color(0, 0, 0);
+          delay(250);
+          RGB_color(255, 0, 255);
+          delay(250);
+        }
+      }
+      break;
+    case 10: {
+        while (SdPlay.isPlaying()) {
+          RGB_color(0, 0, 0);
+          delay(250);
+          RGB_color(255, 255, 0);
+          delay(250);
+        }
+      }
+      break;
+  }
+
+  while (!SdPlay.isStopped()) {;}
+  delay(2500);
+  RGB_color(0, 0, 0);
+}</code></pre>
+						</section>
+
+						<section class="post">
+								<header class="major">
+									<h2>Monitor Auto Rotator using <a href="https://entechtaiwan.com/util/irotate.shtm" target="_blank">IRotate</a></h2>
+								</header>
+								<p>
+									As an engineer, I am naturally searching for how to optimize things. After I installed my second monitor I found myself constantly changing it from portrait to landscape and vice versa to better suit my needs at that moment.<br /><br />
+									This is all well but I somehow feel that there shouldn't be any need for me to actually tell windows that I just changed the monitor's physical orientation and that the software change should happen automatically <br />
+									Because of this, I created a circuit (if it can be called one) and 2 C++ scripts (one for the Arduino and one running on my PC at start-up). <br /><br />
+									The SerialPort library used can be found at <a href="https://github.com/manashmandal/SerialPort" target="_blank">https://github.com/manashmandal/SerialPort</a>.
+								</p>
+								<div class="image main"><img src="images/MonitorRotator.jpg" alt="" /></div>
+								<p>
+									This crude yet effective diagram shows that by using only 2 pins the Arduino can detect the current position of the monitor.<br /><br />
+									The DigitalRead() method will return 1 or HIGH if the pin is power up by 5V and 0 or LOW if grounded. By making the wires long enough and by some rather crude engineering the wires have been fixed in place with tape and touch each other when the monitor is turned thus ensuring a connection.
+								</p>
+								<h3>Arduino Code:</h3>
+								<pre><code>const short NR_OF_POINTS_SAMPLED = 5;
+
+const short in_landscape = 2,
+            in_portrait = 4;
+
+short landscape_array[NR_OF_POINTS_SAMPLED], portrait_array[NR_OF_POINTS_SAMPLED];
+
+short index;
+
+boolean before_landscape, before_portrait;
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(in_landscape, INPUT);
+  pinMode(in_portrait, INPUT);
+
+  landscape_array[NR_OF_POINTS_SAMPLED] = {0};
+  portrait_array[NR_OF_POINTS_SAMPLED] = {0};
+
+  index = 0;
+
+  before_landscape = false;
+  before_portrait = false;
+}
+
+void loop() {
+  if (index == NR_OF_POINTS_SAMPLED) {
+    if (quantifyArray(landscape_array) && !quantifyArray(portrait_array) && !before_landscape) {
+      Serial.println(1);
+      before_landscape = true;
+      before_portrait = false;
+    }
+    else if (quantifyArray(portrait_array) && !quantifyArray(landscape_array) && !before_portrait) {
+      Serial.println(2);
+      before_portrait = true;
+      before_landscape = false;
+    }
+
+    index = 0;
+    emptyArray(landscape_array);
+    emptyArray(portrait_array);
+
+    delay(100);
+  }
+  else {
+    landscape_array[index] = digitalRead(in_landscape);
+    portrait_array[index] = digitalRead(in_portrait);
+    index++;
+  }
+}
+
+boolean quantifyArray(short input[NR_OF_POINTS_SAMPLED]) {
+  short nr_of_ones = 0;
+
+  for (short i = 0; i < NR_OF_POINTS_SAMPLED; ++i) {
+    if (input[i] == 1) {
+      nr_of_ones++;
+    }
+  }
+
+  return nr_of_ones == NR_OF_POINTS_SAMPLED? true : false;
+}
+
+void emptyArray(short input_array[NR_OF_POINTS_SAMPLED]) {
+  for (short i = 0; i < NR_OF_POINTS_SAMPLED; ++i) {
+    input_array[i] = 0;
+  }
+}
+</code></pre>
+<h3>PC Code - cpp</h3>
+<pre><code>#include "main.hpp"
+
+const byte DATA_LENGTH = 3;
+
+std::string portName = R"(\\.\COM)";
+
+// "/c \"iRotate.exe /2:rotate=x\"" cause https://stackoverflow.com/a/30322471/13806339
+std::string command_template = "/c \"iRotate.exe /2:rotate=";
+
+SerialPort *monitor;
+
+char receivedString[DATA_LENGTH];
+
+byte actualPosition = -1;
+
+int main(int argc, char *argv[]) {
+
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
+
+	//Concatenate the COMPort
+	std::string temp_str = (portName + argv[1]);
+	const char *com_c_array = temp_str.c_str();
+
+	monitor = new SerialPort(com_c_array);
+
+	printf("%s", monitor->isConnected() ? ("Connected to " + std::string(com_c_array) + "\n").c_str() : "not connected\n");
+
+	while (!monitor->isConnected()) {
+		Sleep(1000);
+		monitor = new SerialPort(com_c_array);
+	}
+
+	while (monitor->isConnected()) {
+
+		int hasRead = monitor->readSerialPort(receivedString, DATA_LENGTH);
+
+		// So apparently Serial.println() adds \r\n at the end ... makes sense
+		if (!(receivedString[0] == '\r' || receivedString[0] == '\n') && hasRead > 0) {
+			byte receivedInt = (byte) (receivedString[0] - '0');
+
+			if (actualPosition != (receivedInt)) {
+				actualPosition = receivedInt;
+
+				switch (receivedInt) {
+					case 1:
+						executeCMD("0");
+						break;
+					case 2:
+						executeCMD("90");
+						break;
+					case 3:
+						executeCMD("180");
+						break;
+					case 4:
+						executeCMD("270");
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		Sleep(10);
+	}
+
+	std::atexit(onExit);
+	return 0;
+}
+
+void executeCMD(char const *rotation) {
+	printf("Rotated to %s degrees\r\n", rotation);
+
+	ShellExecuteA(
+			nullptr,
+			"open",
+			R"(C:\WINDOWS\system32\cmd.exe)",
+			(command_template + rotation + '\"').c_str(),
+			nullptr,
+			SW_HIDE
+	);
+}
+
+void onExit() { monitor->closeSerial(); }
+</code></pre>
+<h3>PC Code - hpp</h3>
+<pre><code>// Created by Raul Sîmpetru on 27.07.2020.
+
+#pragma once
+
+#include &lt;iostream&gt;
+#include "SerialPort.hpp"
+#include &lt;winuser.h&gt;
+#include &lt;cstdlib&gt;
+#include &lt;string&gt;
+
+void executeCMD(char const *rotation);
+void onExit();</code></pre>
+						</section>
+						<section class="post">
+								<header class="major">
+									<h2>Audio Amplifier using an LM386</h2>
+								</header>
+								<p>
+									This project serves as a stepping stone for a future project/ birthday gift for a fellow student.<br /><br />
+									I started to study electronics at university. The only problem is that you are supposed to learn all the theory to even be allowed to do a normal circuit (not some pointless resistor capacitor useless thing). <br />
+									This project basically proves this idea wrong. <br /><br />
+									Now besides feeding my ego I learned a lot about how signals are amplified and I basically had a real reason to apply the theory that I learned. <br /><br />
+									The following schematic shows the basic amplifier I designed using an LM386 and an Arduino Nano + the C++ code that I wrote for testing.
+								</p>
+								<div class="image main"><img src="images/speaker.png" alt="" /></div>
+								<pre><code>#include &lt;SimpleSDAudio.h&gt;
+
+void setup()
+{
+  Serial.begin(9600);
+  Serial.print(F("\nStarting SD card"));
+
+  // SD card standard CS pin is pin 4
+  // To change this uncoment and adapt folowing line
+  // SdPlay.setSDCSPin(10);
+
+  if (!SdPlay.init(SSDA_MODE_HALFRATE | SSDA_MODE_MONO | SSDA_MODE_AUTOWORKER)) {
+    Serial.println(F("initialization failed. Error: "));
+    Serial.print(SdPlay.getLastError());
+    while (1);
+  }
+
+  if (!SdPlay.setFile("Test2.AFM")) {
+    Serial.println(F("File not found. Error: "));
+    Serial.print(SdPlay.getLastError());
+    while (1);
+  }
+  
+  SdPlay.play();
+  while (!SdPlay.isStopped()) {
+    ;
+  }
+  SdPlay.deInit();
+}
+
+void loop() {}</code></pre>
+						</section>
+
+						<section class="post">
+								<header class="major">
+									<h2>A new Project will be here</h2>
+								</header>
+						</section>
+						<!-- Posts -->
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+							<section class="alt">
+								<h3>Github</h3>
+								<p><a href="https://github.com/RaulSimpetru" target="_blank">https://github.com/RaulSimpetru</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="mailto:raul.simpetru@fau.de">raul.simpetru@fau.de</a></p>
+							</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
