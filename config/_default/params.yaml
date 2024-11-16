@@ -1,0 +1,65 @@
+# SITE SETUP
+# Guide: https://docs.hugoblox.com/tutorial/
+# Documentation: https://docs.hugoblox.com/
+# This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
+
+# Appearance
+appearance:
+  mode: system
+  color: indigo
+
+# SEO
+marketing:
+  seo:
+    site_type: Person
+    local_business_type: ''
+    org_name: ''
+    description: 'Personal Website of Raul Simpetru'
+    twitter: 'RaulCSimpetru'
+  analytics:
+    google_analytics: ''
+    baidu_tongji: ''
+    plausible: ''
+    fathom: ''
+    pirsch: ''
+  verification:
+    google: ''
+    baidu: ''
+
+# Site header
+header:
+  navbar:
+    enable: true
+    blox: "navbar"
+    align: "center"
+    fixed_to_top: true
+    show_search: false
+    show_theme_chooser: true
+    logo:
+      text: "Raul C. Sîmpetru"
+    button:
+      enable: true
+      text: "Get in touch"
+      url: "mailto:raul.simpetru@fau.de"
+
+# Site footer
+footer:
+  copyright:
+    notice: '© 2023-{year} Raul C. Sîmpetru. This work is licensed under {license}'
+    license:
+      enable: true
+      allow_derivatives: false
+      share_alike: true
+      allow_commercial: false
+
+# Localization
+locale:
+  date_format: '02.01.2006'
+  time_format: '03:04'
+
+# Site features
+features:
+  math:
+    enable: false
+  privacy_pack:
+    enable: false
