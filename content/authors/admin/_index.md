@@ -24,7 +24,7 @@ role: Content Creator for Journals (PhD Student)
 
 # Organizations/Affiliations to display in Biography blox
 organizations:
-  - name: nsquared-lab @ FAU Erlangen-Nürnberg
+  - name: n-squared lab @ FAU Erlangen-Nürnberg
     url: https://www.nsquared.tf.fau.de/
 
 # Social network links
@@ -49,29 +49,22 @@ interests:
   - Neural Interfacing
   - Hand Motor Control
   - Electrophysiology
-  - Machine/Deep Learning
-  - Manifold Learning
-
+  - Machine/Deep/Manifold Learning
 
 education:
-  - area: PhD Biomedical Engineering
+  - area: PhD (not yet) AI in Med. Eng.
     institution: ''
     date_start: 2023-12-01
     date_end: 
     summary:
-  - area: MSc Biomedical Engineering
-    institution: ''
-    date_start: 2022-06-01
-    date_end: 2023-10-01
-    summary:
-  - area: BSc Biomedical Engineering
+  - area: MSc & BSc in Med. Eng.
     institution: ''
     date_start: 2019-10-01
-    date_end: 2022-10-01
+    date_end: 2023-10-01
     summary:
 
 ---
 
 ## About Me
 
-I’m a Ph.D. student at the nsquared-lab (FAU Erlangen-Nürnberg), specializing in restoring hand function for individuals with neuromuscular impairments. My research focuses on developing intelligent neural interfacing systems that decode motor intent using electromyography. By integrating neurophysiology, machine learning, and user-centered design, I strive to bridge the gap between cutting-edge research and clinical applications to enhance quality of life.
+I’m a Ph.D. student at the [n-squared lab (FAU Erlangen-Nürnberg)](https://www.nsquared.tf.fau.de/), specializing in restoring hand function for individuals with neuromuscular impairments. My research focuses on developing intelligent neural interfacing systems that decode motor intent using electromyography. By integrating neurophysiology, machine learning, and user-centered design, I strive to bridge the gap between cutting-edge research and clinical applications to enhance quality of life.

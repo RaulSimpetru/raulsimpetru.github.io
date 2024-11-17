@@ -5,7 +5,7 @@ for path in Path("content/publication").rglob("index.md"):
 		lines = f.readlines()
 
 		for line_index in range(len(lines)):
-			if "Raul" in lines[line_index]:
+			if "Raul" in lines[line_index] or "Simpetru" in lines[line_index]:
 				lines[line_index] = "- admin\n"
 
 	with path.open("w") as f:

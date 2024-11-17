@@ -3,7 +3,7 @@ title: Evaluation of GPU-centric Embedded Architectures in the Field of Neuromus
   EMG-based AI
 authors:
 - S. Pfenning
-- R.C. Simpetru
+- admin
 - N. Pollak
 - A. Del Vecchio
 - D. Fey
