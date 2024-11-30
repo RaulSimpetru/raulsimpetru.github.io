@@ -6,7 +6,7 @@ share: false
 event: 70th Consumenta
 event_url: https://www.fau.de/outreach/wissenschaft-fuer-buergerinnen-und-buerger/die-fau-auf-der-consumenta/
 
-location: Nürnberg
+location: Nürnberg, Germany
 
 summary: How does an intelligent neuro-orthosis help restore movement in paralyzed hands?
 abstract: ''

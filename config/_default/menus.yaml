@@ -7,10 +7,10 @@ main:
   - name: About Me
     url: /
     weight: 10
-  - name: Featured Works
+  - name: Work Highlights
     url: /#papers
     weight: 11
-  - name: Recent & Upcoming Talks 
+  - name: Where I Was
     url: /#talks
     weight: 12
   - name: Publications

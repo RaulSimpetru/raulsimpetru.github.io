@@ -1,5 +1,5 @@
 ---
-title: "EMG based real-time control of the hand"
+title: "My First Real-Time EMG Decoding of Over 20 Degrees of Freedom in the Human Hand"
 authors:
 - admin
 author_notes:

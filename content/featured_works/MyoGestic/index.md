@@ -1,5 +1,5 @@
 ---
-title: "MyoGestic"
+title: "MyoGestic - Open-Source, Adaptive EMG Interface for Restoring Motor Function in Individuals with Neural Lesions"
 authors:
 - admin
 date: "2024-08-14T00:00:00Z"
@@ -43,7 +43,7 @@ image:
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-projects:
+projects: []
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.

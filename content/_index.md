@@ -23,7 +23,7 @@ sections:
   - block: collection
     id: papers
     content:
-      title: Featured Works
+      title: Work Highlights
       filters:
         folders:
           - featured_works
@@ -34,13 +34,13 @@ sections:
   - block: collection
     id: talks
     content:
-      title: Recent & Upcoming Talks
+      title: Where I Was (besides the lab)
       filters:
         folders:
           - event
     design:
       view: article-grid
-      columns: 1
+      columns: 2
   - block: collection
     id: publications
     content:
