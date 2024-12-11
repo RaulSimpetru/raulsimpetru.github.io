@@ -257,7 +257,6 @@
       "md:flex",
       "md:flex-row",
       "md:flex-shrink-0",
-      "md:grid-cols-1",
       "md:grid-cols-2",
       "md:grid-cols-[200px_auto]",
       "md:ml-4",
