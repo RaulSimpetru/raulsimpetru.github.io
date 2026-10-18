@@ -1,2 +1,6 @@
 public/
 resources/
+.superpowers/
+figures/emg-bench/shots/
+figures/emg-bench/limb/
+figures/emg-bench/*.html
