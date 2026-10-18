@@ -456,5 +456,5 @@ cpSync(join(HERE, "img"), join(OUT, "img"), { recursive: true });
 cpSync(join(HERE, "icons"), OUT, { recursive: true });
 writeFileSync(join(OUT, "favicon.svg"), FAVICON);
 for (const f of ["mesh.txt", "views.txt"]) cpSync(join(HERE, "bench", f), join(OUT, "bench", f)); // the rest is inlined above
-cpSync(join(HERE, "../static"), OUT, { recursive: true }); // uploads/resume.pdf keeps its old URL
+cpSync(join(HERE, "uploads"), join(OUT, "uploads"), { recursive: true }); // the CV keeps its old URL, /uploads/resume.pdf
 console.log(`public/index.html · ${(html.length / 1024).toFixed(0)} KB`);
