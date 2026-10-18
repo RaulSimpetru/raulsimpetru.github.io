@@ -1,0 +1,8 @@
+{
+  "name": "raulsimpetru.github.io",
+  "private": true,
+  "scripts": {
+    "build": "bun site/build.mjs",
+    "figure": "bun figures/emg-bench/build.mjs --site=site/bench"
+  }
+}
