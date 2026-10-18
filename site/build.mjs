@@ -9,6 +9,16 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, "../public");
 const h = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byId = Object.fromEntries(PAPERS.map((p) => [p.id, p]));
+// The RS monogram: Bai Jamjuree Bold's R and S (the S tucked in) with the lower leg of the R in crimson, in a 1175 x 716 box.
+const RS = {
+  r: "M0 8H372Q463 8 518.5 57Q574 106 574 186V256Q574 308 544.5 346.5Q515 385 459 405V407Q491 428 507.5 455Q524 482 540 530L596 708H453L400 542Q387 499 364 478Q341 457 307 457H138V708H0ZM346 338Q388 338 412 315.5Q436 293 436 257V192Q436 163 418 145.5Q400 128 370 128H138V338Z",
+  s: "M591 483H727Q727 535 753.5 564.5Q780 594 827 594H938Q982 594 1009.5 575.5Q1037 557 1037 526V492Q1037 443 965 431L781 400Q691 385 644.5 342.5Q598 300 598 234V178Q598 125 626.5 84.5Q655 44 707.5 22Q760 0 829 0H942Q1007 0 1057 27Q1107 54 1134.5 102.5Q1162 151 1162 215H1026Q1026 173 1003 147.5Q980 122 942 122H829Q787 122 761.5 140Q736 158 736 188V215Q736 265 805 277L988 309Q1079 325 1127 365.5Q1175 406 1175 470V536Q1175 589 1145.5 630Q1116 671 1063 693.5Q1010 716 940 716H825Q715 716 653 654.5Q591 593 591 483Z",
+  leg: "M453 708L596 708L544.4 544L400.6 544Z",
+};
+const monogram = (ink, leg) => `<path fill="${ink}" d="${RS.r}"/><path fill="${leg}" d="${RS.leg}"/><path fill="${ink}" d="${RS.s}"/>`;
+// The favicon: the monogram on a navy tile (apple-touch-icon.png and favicon-32.png in icons/ are renders of it).
+const FAVICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#14213D"/><svg x="10.88" y="19.13" width="42.24" height="25.74" viewBox="0 0 1175 716">${monogram("#F3F4F8", "#FF5D7A")}</svg></svg>
+`;
 const ext = (href, text, cls = "") => `<a${cls ? ` class="${cls}"` : ""} href="${h(href)}" target="_blank" rel="noopener">${text}</a>`;
 
 const CSS = `
@@ -18,6 +28,7 @@ const CSS = `
   --paper:#FBFAF7;--paper-2:#F2F1EC;--ink:#14213D;--ink-2:#36415B;--muted:#68708A;--rule:#D8DAE0;--rule-strong:#14213D;
   --crimson:#B4123A;--crimson-soft:#F7E3E8;--lilac:#8E7CE8;--lilac-ink:#5B4BC4;--lilac-soft:#EEEBFC;
   --card:#FFFFFF;--band:#14213D;--on-band:#F3F4F8;--on-band-muted:#AEB6CA;--shade:rgba(10,14,24,.55);
+  --mark-bg:#14213D;--mark-ink:#F3F4F8;--mark-leg:#FF5D7A;
   --display:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
   --text:"Source Serif 4",Georgia,"Times New Roman",serif;
   --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
@@ -26,11 +37,13 @@ const CSS = `
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#0D111C;--paper-2:#141A28;--ink:#E8EBF2;--ink-2:#C3C9D7;--muted:#8D95AA;--rule:#262E42;--rule-strong:#E8EBF2;
   --crimson:#FF5D7A;--crimson-soft:#3A1520;--lilac:#A898FF;--lilac-ink:#C4B9FF;--lilac-soft:#221D3D;
-  --card:#141A28;--band:#060912;--on-band:#E8EBF2;--on-band-muted:#8D95AA;--shade:rgba(0,0,0,.66);color-scheme:dark}}
+  --card:#141A28;--band:#060912;--on-band:#E8EBF2;--on-band-muted:#8D95AA;--shade:rgba(0,0,0,.66);
+  --mark-bg:#FFFFFF;--mark-ink:#14213D;--mark-leg:#B4123A;color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#0D111C;--paper-2:#141A28;--ink:#E8EBF2;--ink-2:#C3C9D7;--muted:#8D95AA;--rule:#262E42;--rule-strong:#E8EBF2;
   --crimson:#FF5D7A;--crimson-soft:#3A1520;--lilac:#A898FF;--lilac-ink:#C4B9FF;--lilac-soft:#221D3D;
-  --card:#141A28;--band:#060912;--on-band:#E8EBF2;--on-band-muted:#8D95AA;--shade:rgba(0,0,0,.66);color-scheme:dark}
+  --card:#141A28;--band:#060912;--on-band:#E8EBF2;--on-band-muted:#8D95AA;--shade:rgba(0,0,0,.66);
+  --mark-bg:#FFFFFF;--mark-ink:#14213D;--mark-leg:#B4123A;color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 18px/1.6 var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
@@ -46,8 +59,16 @@ img{max-width:100%;display:block}
 h1,h2,h3,h4{font-family:var(--display);color:var(--ink);text-wrap:balance;margin:0}
 
 /* bar */
-.bar{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 32px;padding-block:22px 18px;border-bottom:1px solid var(--rule-strong)}
-.bar .name{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.01em;text-decoration:none}
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 32px;padding-block:22px 18px;border-bottom:1px solid var(--rule-strong)}
+.bar .name,.bar .name:hover{display:inline-flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none}
+.mark{flex:none;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:var(--mark-bg)}
+.mark svg{display:block;width:24px;height:auto}
+.mark .ink{fill:var(--mark-ink)}
+.mark .leg{fill:var(--mark-leg)}
+/* the name in the monogram's face; the î is set in crimson with a navy dotless i over it, so only its circumflex shows red */
+.wm{font-family:"Bai Jamjuree",var(--display);font-weight:700;font-size:20px;letter-spacing:-.01em;line-height:1.2;white-space:nowrap}
+.wm .i{position:relative;display:inline-block;color:var(--crimson)}
+.wm .i span{position:absolute;left:0;top:0;color:var(--ink)}
 .bar nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:var(--display);font-size:15px;font-weight:500}
 .bar nav a{text-decoration:none;padding-block:6px}
 .bar nav a:hover{text-decoration:underline}
@@ -364,14 +385,17 @@ const html = `<!doctype html>
 <meta name="description" content="Neural interfaces that read what a hand is trying to do. Research, papers and software by Raul C. Sîmpetru.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="icon" href="favicon-32.png" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@700&family=Geist+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
 <style>${CSS}
 ${figureCss}</style>
 </head>
 <body>
 <div class="wrap"><div class="inner">
 <header class="bar">
-<a class="name" href="#top">Raul C. Sîmpetru</a>
+<a class="name" href="#top" aria-label="Raul C. Sîmpetru"><span class="mark"><svg viewBox="0 0 1175 716" aria-hidden="true"><path class="ink" d="${RS.r}"/><path class="leg" d="${RS.leg}"/><path class="ink" d="${RS.s}"/></svg></span><span class="wm" aria-hidden="true">Raul C. S<span class="i">î<span>ı</span></span>mpetru</span></a>
 <nav aria-label="Sections"><a href="#questions">Research</a><a href="#papers">Papers</a><a href="#software">Software</a><a href="#people">Experience</a>${ext("https://raulsimpetru.github.io/uploads/resume.pdf", "CV", "cv")}<a href="#contact">Contact</a></nav>
 </header>
 
@@ -429,6 +453,8 @@ rmSync(OUT, { recursive: true, force: true });
 mkdirSync(join(OUT, "bench"), { recursive: true });
 writeFileSync(join(OUT, "index.html"), html);
 cpSync(join(HERE, "img"), join(OUT, "img"), { recursive: true });
+cpSync(join(HERE, "icons"), OUT, { recursive: true });
+writeFileSync(join(OUT, "favicon.svg"), FAVICON);
 for (const f of ["mesh.txt", "views.txt"]) cpSync(join(HERE, "bench", f), join(OUT, "bench", f)); // the rest is inlined above
 cpSync(join(HERE, "../static"), OUT, { recursive: true }); // uploads/resume.pdf keeps its old URL
 console.log(`public/index.html · ${(html.length / 1024).toFixed(0)} KB`);

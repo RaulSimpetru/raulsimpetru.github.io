@@ -581,28 +581,6 @@ const LIVE = readFileSync(join(HERE, "live.js"), "utf8").replace("__DATA__", JSO
 const CREDIT = `<a class="eb-credit" href="https://joergsla.gumroad.com/l/limbkit" target="_blank" rel="noopener">Hands: LimbKit ↗</a>`;
 const body = `<figure class="iso-figure"><div class="iso-plate"><div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="hint">Drag to turn · pick a gesture</span></div><style>${CSS}</style>${CREDIT}${stage}</div></figure>`;
 const page = k.pageHtml({ title: "EMG bench", theme, body, script: LIVE, width: 800 });
-// The same figure as an artifact page: no document skeleton of its own, and the theme follows the viewer.
-const THEME = `const root = document.documentElement;
-const wrap = document.querySelector(".eb-page");
-const dark = matchMedia("(prefers-color-scheme: dark)");
-const apply = () => wrap.setAttribute("data-theme", root.getAttribute("data-theme") || (dark.matches ? "dark" : "light"));
-apply();
-dark.addEventListener("change", apply);
-new MutationObserver(apply).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
-`;
-const ARTIFACT = `<title>EMG Bench</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<style>
-:root{--page:#f2f2ef;color-scheme:light}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--page:#0b0b0b;color-scheme:dark}}
-:root[data-theme="dark"]{--page:#0b0b0b;color-scheme:dark}
-body{background:var(--page);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-${k.ISO_CSS}
-.eb-page{background:var(--anatomy-page);color:var(--anatomy-text);font:14px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;max-width:800px;margin:0 auto;padding-block:40px 64px}
-</style>
-<main class="iso eb-page" data-theme="light">${body}</main>
-<script type="module">${(THEME + LIVE).replace(/<\/(script)/gi, "<\\/$1")}</script>
-`;
 // The figure for the website: markup, style and script as separate files, payloads as binaries.
 const site = argv.find((a) => a.startsWith("--site="))?.slice(7);
 if (site) {
@@ -618,6 +596,5 @@ if (site) {
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const name = `emg-bench${theme === "dark" ? "-dark" : ""}.html`;
   writeFileSync(join(HERE, name), page);
-  writeFileSync(join(HERE, "emg-bench.artifact.html"), ARTIFACT);
   console.log(`wrote ${name} · ${(page.length / 1024).toFixed(0)} KB (mesh ${(MESH.data.length / 1024).toFixed(0)} KB, ${FRAMES.length} views ${(VIEWS.data.length / 1024).toFixed(0)} KB) · ${R.items.length} drawn items · ${proxies.tris.length} stand-in triangles · ${((Date.now() - started) / 1000).toFixed(1)} s · ${frontFace}`);
 }
