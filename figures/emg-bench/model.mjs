@@ -72,20 +72,6 @@ export function activityOf(f, row, col) {
   return Math.min(1, a);
 }
 
-// The phrase the readout uses for a finger vector: the nearest gesture.
-export function nameOf(f) {
-  let best = GESTURES[0];
-  let gap = Infinity;
-  for (const g of GESTURES) {
-    const d = g.f.reduce((sum, v, i) => sum + (v - f[i]) ** 2, 0);
-    if (d < gap) {
-      gap = d;
-      best = g;
-    }
-  }
-  return best;
-}
-
 if (process.argv[1] && process.argv[1].endsWith("model.mjs")) {
   const assert = (ok, what) => {
     if (!ok) throw new Error(what);
@@ -93,7 +79,6 @@ if (process.argv[1] && process.argv[1].endsWith("model.mjs")) {
   assert(dofOf([0, 0, 0, 0, 0]).length === DOF, "22 decoded degrees of freedom");
   assert(bendsOf("index", 1)["Bend Center"] === LIMB.full[1], "index PIP at full flexion");
   assert(bendsOf("thumb", 0).Rotation[0] === 0, "thumb at rest keeps LimbKit's own rotation");
-  for (const g of GESTURES) assert(nameOf(g.f).id === g.id, `gesture ${g.id} names itself`);
   assert(activityOf([0, 1, 0, 0, 0], 3, 2) > activityOf([0, 1, 0, 0, 0], 3, 7), "index lights the radial side");
   assert(Math.abs(1000 / RATE - 31.25) < 1e-9, "one decoder update every 31.25 ms");
   console.log("model ok");

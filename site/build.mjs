@@ -396,7 +396,7 @@ ${figureCss}</style>
 <div class="wrap"><div class="inner">
 <header class="bar">
 <a class="name" href="#top" aria-label="Raul C. Sîmpetru"><span class="mark"><svg viewBox="0 0 1175 716" aria-hidden="true"><path class="ink" d="${RS.r}"/><path class="leg" d="${RS.leg}"/><path class="ink" d="${RS.s}"/></svg></span><span class="wm" aria-hidden="true">Raul C. S<span class="i">î<span>ı</span></span>mpetru</span></a>
-<nav aria-label="Sections"><a href="#questions">Research</a><a href="#papers">Papers</a><a href="#software">Software</a><a href="#people">Experience</a>${ext("https://raulsimpetru.github.io/uploads/resume.pdf", "CV", "cv")}<a href="#contact">Contact</a></nav>
+<nav aria-label="Sections"><a href="#questions">Research</a><a href="#papers">Papers</a><a href="#software">Software</a><a href="#people">Experience</a>${ext("uploads/raul-simpetru-cv.pdf", "CV", "cv")}<a href="#contact">Contact</a></nav>
 </header>
 
 <main id="top">
@@ -427,7 +427,7 @@ ${ACTS.map((a, i) => `<div class="act grid"><div class="act-head"><h3>${h(a.titl
 </section>
 
 <section id="people" aria-labelledby="h-people">
-<div class="sec-head grid"><p class="mono label">Experience</p><h2 id="h-people">Research, teaching, talks.</h2><p class="intro">${ext("https://raulsimpetru.github.io/uploads/resume.pdf", "The full CV (PDF) ↗", "cv-link")}</p></div>
+<div class="sec-head grid"><p class="mono label">Experience</p><h2 id="h-people">Research, teaching, talks.</h2><p class="intro">${ext("uploads/raul-simpetru-cv.pdf", "The full CV (PDF) ↗", "cv-link")}</p></div>
 <div class="people grid">
 <div class="stage-col"><figure class="stage-photo"><img src="img/speaker-wide.jpg" alt="Raul C. Sîmpetru at a lectern at Georgian Technical University, presenting MyoGestic" loading="lazy"><figcaption>${ext("https://www.nsquared.tf.fau.de/2026/10/12/georgian-and-international-early-career-researchers-deliver-public-lectures-on-biomedical-engineering-at-georgian-technical-university/", "Georgian Technical University, Tbilisi, 2026 ↗")}</figcaption></figure><figure class="stage-photo"><img src="img/event-isek2026.jpg" alt="Raul C. Sîmpetru at the lectern at ISEK 2026, presenting a slide titled The neural manifold" loading="lazy" style="aspect-ratio:4/3;object-position:30% 50%"><figcaption>${ext("https://www.jyu.fi/en/events/isek-2026-congress", "ISEK 2026, Jyväskylä, June 2026 ↗")}</figcaption></figure></div>
 <div class="facts-list"><dl>${FACTS.map(([k, items]) => `<div><dt class="mono label">${h(k)}</dt><dd><ul>${items.map(([main, sub, href]) => `<li><b>${h(main)}</b><span>${href ? ext(href, `${h(sub)} ↗`) : h(sub)}</span></li>`).join("")}</ul></dd></div>`).join("")}</dl></div>
@@ -439,7 +439,7 @@ ${ACTS.map((a, i) => `<div class="act grid"><div class="act-head"><h3>${h(a.titl
 <div class="band" id="contact"><div class="wrap"><div class="inner">
 <h2>Contact</h2>
 <div class="mail"><span>raul.simpetru@fau.de</span><button type="button" data-copy="raul.simpetru@fau.de">Copy address</button></div>
-<nav aria-label="Elsewhere">${ext("https://raulsimpetru.github.io/uploads/resume.pdf", "CV")}${ext("https://scholar.google.com/citations?user=jAHFWF8AAAAJ", "Google Scholar")}${ext("https://orcid.org/0000-0003-0455-0168", "ORCID")}${ext("https://github.com/RaulSimpetru", "GitHub")}${ext("https://www.linkedin.com/in/raulsimpetru/", "LinkedIn")}</nav>
+<nav aria-label="Elsewhere">${ext("uploads/raul-simpetru-cv.pdf", "CV")}${ext("https://scholar.google.com/citations?user=jAHFWF8AAAAJ", "Google Scholar")}${ext("https://orcid.org/0000-0003-0455-0168", "ORCID")}${ext("https://github.com/RaulSimpetru", "GitHub")}${ext("https://www.linkedin.com/in/raulsimpetru/", "LinkedIn")}</nav>
 <footer>© 2026 Raul C. Sîmpetru</footer>
 </div></div></div>
 
@@ -456,5 +456,5 @@ cpSync(join(HERE, "img"), join(OUT, "img"), { recursive: true });
 cpSync(join(HERE, "icons"), OUT, { recursive: true });
 writeFileSync(join(OUT, "favicon.svg"), FAVICON);
 for (const f of ["mesh.txt", "views.txt"]) cpSync(join(HERE, "bench", f), join(OUT, "bench", f)); // the rest is inlined above
-cpSync(join(HERE, "../static"), OUT, { recursive: true }); // uploads/resume.pdf keeps its old URL
+cpSync(join(HERE, "uploads"), join(OUT, "uploads"), { recursive: true }); // the CV
 console.log(`public/index.html · ${(html.length / 1024).toFixed(0)} KB`);
