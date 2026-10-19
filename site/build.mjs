@@ -3,7 +3,7 @@
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PAPERS, ACTS, QUESTIONS, CAST, SOFTWARE, FACTS } from "./data.mjs";
+import { PAPERS, ACTS, QUESTIONS, CAST, SOFTWARE, TOOLS, FACTS } from "./data.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, "../public");
@@ -182,19 +182,28 @@ section{padding-top:clamp(80px,9vw,140px)}
 .cast em{display:block;color:var(--muted);font-size:15px}
 
 /* software */
-.sw{row-gap:0;margin-top:0}
-#software .sec-head{border-bottom:0}
-.sw article{grid-column:span 6;min-width:0;padding:28px 0 8px;border-top:4px solid var(--ink)}
-.sw article.crimson{border-top-color:var(--crimson)}
-.sw article.lilac{border-top-color:var(--lilac)}
-.sw .logo{display:flex;margin-bottom:14px}
+.sw{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-top:40px}
+.sw article{display:flex;flex-direction:column;gap:10px;padding:24px 28px 22px;background:var(--card);border:1px solid var(--rule);border-radius:14px}
+.sw .logo{display:flex;margin-bottom:4px}
 .sw .logo a{display:inline-flex;transition:opacity .2s}
 .sw .logo a:hover{opacity:.75}
 .sw .logo img{height:64px;width:auto}
-.sw p{margin:8px 0 0;font-size:17px;line-height:1.55;color:var(--ink-2)}
+.sw p{margin:0;font-size:17px;line-height:1.55;color:var(--ink-2)}
 .sw .role{font-family:var(--display);font-size:13px;font-weight:600;color:var(--muted)}
 .sw code{white-space:nowrap;font-family:var(--mono);font-size:13px;background:var(--lilac-soft);color:var(--lilac-ink);padding:2px 6px}
-.sw .links{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:14px;font-family:var(--display);font-size:15px;font-weight:600}
+.sw .links{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:auto;padding-top:6px;font-family:var(--display);font-size:14px;font-weight:600}
+
+/* smaller tools: cards in two groups */
+.tools{display:flex;flex-direction:column;gap:48px;margin-top:40px}
+.tools h3{margin:0 0 16px;font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
+.tool{display:flex;flex-direction:column;gap:10px;padding:22px 24px 20px;background:var(--card);border:1px solid var(--rule);border-radius:14px}
+.tool .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tool .kind{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.tool .mcp{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--crimson);background:var(--crimson-soft);padding:3px 7px;border-radius:4px}
+.tool h4{font-weight:700;font-size:20px;line-height:1.2;letter-spacing:-.015em}
+.tool p{margin:0;font-size:16px;line-height:1.5;color:var(--ink-2)}
+.tool .links{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:auto;padding-top:6px;font-family:var(--display);font-size:14px;font-weight:600}
 
 /* people and places */
 .people{row-gap:40px;padding-top:36px;align-items:start}
@@ -237,7 +246,6 @@ section{padding-top:clamp(80px,9vw,140px)}
   .act-head{grid-column:1/-1;position:static;padding:32px 0 0 28px}
   .act-list{padding-top:16px;border-left:0}
   .act-list,.cast{grid-column:1/-1}
-  .sw article{grid-column:1/-1}
   .stage-col,.facts-list{grid-column:1/-1}
   .facts-list dl>div{grid-template-columns:1fr}
 }
@@ -396,7 +404,7 @@ ${figureCss}</style>
 <div class="wrap"><div class="inner">
 <header class="bar">
 <a class="name" href="#top" aria-label="Raul C. Sîmpetru"><span class="mark"><svg viewBox="0 0 1175 716" aria-hidden="true"><path class="ink" d="${RS.r}"/><path class="leg" d="${RS.leg}"/><path class="ink" d="${RS.s}"/></svg></span><span class="wm" aria-hidden="true">Raul C. S<span class="i">î<span>ı</span></span>mpetru</span></a>
-<nav aria-label="Sections"><a href="#questions">Research</a><a href="#papers">Papers</a><a href="#software">Software</a><a href="#people">Experience</a>${ext("uploads/raul-simpetru-cv.pdf", "CV", "cv")}<a href="#contact">Contact</a></nav>
+<nav aria-label="Sections"><a href="#questions">Research</a><a href="#papers">Papers</a><a href="#software">Software</a><a href="#tools">Tools</a><a href="#people">Experience</a>${ext("uploads/raul-simpetru-cv.pdf", "CV", "cv")}<a href="#contact">Contact</a></nav>
 </header>
 
 <main id="top">
@@ -423,7 +431,12 @@ ${ACTS.map((a, i) => `<div class="act grid"><div class="act-head"><h3>${h(a.titl
 
 <section id="software" aria-labelledby="h-software">
 <div class="sec-head grid"><p class="mono label">Software</p><h2 id="h-software">Research software.</h2></div>
-<div class="sw grid">${SOFTWARE.map((s) => `<article class="${s.rule}"><h3 class="logo">${ext(s.links[0][1], `<img src="${s.logo}" alt="${h(s.name)}">`)}</h3><p>${h(s.text)}</p><p class="role">${h(s.role)}${s.install ? ` · <code>${h(s.install)}</code>` : ""}</p><div class="links">${s.links.map(([l, href]) => ext(href, `${h(l)} ↗`)).join("")}</div></article>`).join("")}</div>
+<div class="sw">${SOFTWARE.map((s) => `<article><h3 class="logo">${ext(s.links[0][1], `<img src="${s.logo}" alt="${h(s.name)}">`)}</h3><p>${h(s.text)}</p><p class="role">${h(s.role)}${s.install ? ` · <code>${h(s.install)}</code>` : ""}</p><div class="links">${s.links.map(([l, href]) => ext(href, `${h(l)} ↗`)).join("")}</div></article>`).join("")}</div>
+</section>
+
+<section id="tools" aria-labelledby="h-tools">
+<div class="sec-head grid"><p class="mono label">Tools</p><h2 id="h-tools">Smaller tools.</h2></div>
+<div class="tools">${TOOLS.map((g) => `<div><h3>${h(g.label)}</h3><div class="tool-grid">${g.items.map((t) => `<article class="tool"><div class="top"><span class="kind">${h(t.kind)}</span>${t.mcp ? `<span class="mcp">MCP</span>` : ""}</div><h4>${h(t.name)}</h4><p>${h(t.line)}</p><div class="links">${t.links.map(([l, href]) => ext(href, `${h(l)} ↗`)).join("")}</div></article>`).join("")}</div></div>`).join("\n")}</div>
 </section>
 
 <section id="people" aria-labelledby="h-people">

@@ -128,8 +128,27 @@ export const CAST = [
 ];
 
 export const SOFTWARE = [
-  { name: "MyoGestic", logo: "img/logo-myogestic.png", rule: "crimson", text: "Real-time myocontrol software with decoder calibration during participant sessions.", role: "Co-creator and core developer · v2.0, 2026", links: [["Docs", "https://nsquaredlab.github.io/MyoGestic/"], ["GitHub", "https://github.com/NsquaredLab/MyoGestic"], ["Zenodo", "https://doi.org/10.5281/zenodo.20257631"]] },
-  { name: "MyoGen", logo: "img/logo-myogen.png", rule: "lilac", text: "Biophysical simulation from neural drive to EMG.", role: "Author and maintainer · v0.11.0", install: "pip install myogen", links: [["Docs", "https://nsquaredlab.github.io/MyoGen/"], ["GitHub", "https://github.com/NsquaredLab/MyoGen"]] },
+  { name: "MyoGestic", logo: "img/logo-myogestic.png", text: "Real-time myocontrol software with decoder calibration during participant sessions.", role: "Co-creator and core developer · v2.0, 2026", links: [["Docs", "https://nsquaredlab.github.io/MyoGestic/"], ["GitHub", "https://github.com/NsquaredLab/MyoGestic"], ["Zenodo", "https://doi.org/10.5281/zenodo.20257631"]] },
+  { name: "MyoGen", logo: "img/logo-myogen.png", text: "Biophysical simulation from neural drive to EMG.", role: "Author and maintainer · v0.11.0", install: "pip install myogen", links: [["Docs", "https://nsquaredlab.github.io/MyoGen/"], ["GitHub", "https://github.com/NsquaredLab/MyoGen"]] },
+];
+
+// Smaller tools, in two groups; links are [label, href].
+const gh = (repo) => ["GitHub", `https://github.com/RaulSimpetru/${repo}`];
+export const TOOLS = [
+  { label: "Recording and tracking", items: [
+    { name: "LSL Recording Toolbox", kind: "Rust · CLI", line: "Records several Lab Streaming Layer streams in sync to Zarr, with tools to manage and analyse the recordings.", links: [gh("lsl-recording-toolbox"), ["Docs", "https://raulsimpetru.github.io/lsl-recording-toolbox/"]] },
+    { name: "Muovi LSL interface", kind: "Rust", line: "Streams the OT Bioelettronica Muovi EMG device into Lab Streaming Layer in real time.", links: [gh("muovi-lsl-interface"), ["Docs", "https://raulsimpetru.github.io/muovi-lsl-interface/"]] },
+    { name: "Sessantaquattro LSL interface", kind: "Rust", line: "Streams the OT Bioelettronica Sessantaquattro into Lab Streaming Layer in real time.", links: [gh("sessantaquattro-lsl-interface"), ["Docs", "https://raulsimpetru.github.io/sessantaquattro-lsl-interface/sessantaquattro_lsl_interface"]] },
+    { name: "napari-cotrack", kind: "Python · napari plugin", line: "Label keypoints on a few frames; CoTracker3 tracks them through the rest of the video.", links: [gh("napari-cotrack")] },
+  ] },
+  { label: "Research workflow", items: [
+    { name: "Zotero Library MCP", kind: "Python", mcp: true, line: "Lets Claude, Codex and ChatGPT add papers and books to Zotero by DOI, arXiv ID or ISBN, and manage collections and tags.", links: [gh("zotero-library-mcp")] },
+    { name: "Synology Site Hub", kind: "TypeScript", line: "Live previews of every git branch of your websites, on your own Synology NAS behind its login.", links: [gh("synology-site-hub"), ["Demo", "https://raulsimpetru.github.io/synology-site-hub/demo.html"]] },
+    { name: "GrantBridge", kind: "Python · local LLM", line: "Watches German and EU funding calls, ranks them against a researcher’s confirmed capabilities and drafts project concepts.", links: [gh("grantbridge")] },
+    { name: "Seatsurfing MCP", kind: "Python", mcp: true, line: "Book desks and rooms in Seatsurfing from Claude Code.", links: [gh("Seatsurfing-MCP")] },
+    { name: "Netron Quick Look", kind: "Objective-C · macOS", line: "Preview machine-learning model files in Finder with Netron: select one and press Space.", links: [gh("homebrew-netron-quicklook")] },
+    { name: "PDF Form Filler", kind: "Python", line: "Fills PDF forms with text and checkboxes so they render correctly in any viewer.", links: [gh("pdf-form-filler")] },
+  ] },
 ];
 
 // Experience, compact: one line per fact, [main, sub, optional link]; the full CV is a link.
