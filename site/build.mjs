@@ -80,7 +80,8 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 
 /* hero */
 .sky{position:relative;overflow:hidden;background:var(--sky)}
-.cloud{position:absolute;left:0;animation:cloud 70s linear infinite}
+.hero-art{position:relative;overflow:hidden}
+.cloud{position:absolute;left:0;z-index:1;animation:cloud 70s linear infinite}
 .cloud.b{animation-duration:110s;animation-delay:-40s}
 @keyframes cloud{from{transform:translateX(-30%)}to{transform:translateX(130%)}}
 .rock{position:absolute;animation:bob 6s ease-in-out infinite alternate}
@@ -357,13 +358,13 @@ const ICON = {
 const secHead = (n, label, title, right) => `<div class="sec-head"><div class="side"><span class="cap">${n} · ${h(label)}</span></div><h2>${h(title)}</h2><div class="side r mono">${right}</div></div>`;
 
 // hero
-const CLOUD_A = `<svg class="cloud" aria-hidden="true" viewBox="0 0 220 60" style="top:70px;width:220px;height:60px"><path d="M14 52h188c8 0 12-12 2-16 2-12-12-18-22-12-4-12-22-16-32-6-8-14-34-14-42 2-12-4-24 4-22 14-14-2-26 6-22 14-8 0-10 4-8 4z" fill="#F7EED9" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
-const CLOUD_B = `<svg class="cloud b" aria-hidden="true" viewBox="0 0 160 46" style="top:190px;width:160px;height:46px"><path d="M10 40h138c6 0 9-9 1-12 1-9-9-13-16-9-3-9-16-12-23-4-6-10-25-10-31 2-9-3-18 3-16 10-10-1-19 5-16 10-6 0-8 3-6 3z" fill="#E7DDF0" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
+const CLOUD_A = `<svg class="cloud" aria-hidden="true" viewBox="0 0 220 60" style="top:0.5%;width:19%;height:auto"><path d="M14 52h188c8 0 12-12 2-16 2-12-12-18-22-12-4-12-22-16-32-6-8-14-34-14-42 2-12-4-24 4-22 14-14-2-26 6-22 14-8 0-10 4-8 4z" fill="#F7EED9" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
+const CLOUD_B = `<svg class="cloud b" aria-hidden="true" viewBox="0 0 160 46" style="top:2%;width:14%;height:auto"><path d="M10 40h138c6 0 9-9 1-12 1-9-9-13-16-9-3-9-16-12-23-4-6-10-25-10-31 2-9-3-18 3-16 10-10-1-19 5-16 10-6 0-8 3-6 3z" fill="#E7DDF0" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
 const ROCKS = `<svg class="rock" aria-hidden="true" viewBox="0 0 60 44" style="right:7%;top:262px;width:60px;height:44px"><path d="M6 14l18-10 26 4 6 12-10 14-22 6-18-8z" fill="#A994C6" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/><path d="M6 14l20 8 30-2M26 22l-4 18" fill="none" stroke="#2A2522" stroke-width="1.1"/></svg><svg class="rock b" aria-hidden="true" viewBox="0 0 40 52" style="right:19%;top:318px;width:34px;height:44px"><path d="M8 6l20-2 8 14-4 26-16 4-10-14z" fill="#C98B6E" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6l12 16 16-4M20 22l-4 26" fill="none" stroke="#2A2522" stroke-width="1.1"/></svg>`;
 const venues = PAPERS.map((p) => `${p.venue} ${p.year}`).concat(["MyoGestic", "MyoGen"]);
 const tickerRun = `<span>${venues.map((v) => `<span>${h(v)}</span><i>◆</i>`).join("")}</span>`;
 const hero = `<div class="cell stk hero" id="top">${X}
-<div class="sky">${CLOUD_A}${CLOUD_B}${ROCKS}
+<div class="sky">${ROCKS}
 <div class="hero-text">
 <div style="max-width:780px">
 <p class="status mono ld d1"><span class="dot-live"></span>Dr.-Ing. defence expected December 2026</p>
@@ -373,7 +374,7 @@ const hero = `<div class="cell stk hero" id="top">${X}
 </div>
 <div class="labels mono"><span style="display:flex;align-items:center;gap:8px"><span class="sq"></span>n-squared lab · FAU</span><span>Erlangen · Germany</span></div>
 </div>
-<img src="img/desert-hero.webp" width="2208" height="944" fetchpriority="high" alt="Clean-line comic illustration of a pastel desert: Raul, seen from behind in a linen shirt, scarf, satchel and desert boots with a bamboo staff, stands on a dune ridge looking at a giant segmented robotic hand half-buried in the sand, a ribbon cable snaking toward him">
+<div class="hero-art">${CLOUD_A}${CLOUD_B}<img src="img/desert-hero.webp" width="2208" height="944" fetchpriority="high" alt="Clean-line comic illustration of a pastel desert: Raul, seen from behind in a linen shirt, scarf, satchel and desert boots with a bamboo staff, stands on a dune ridge looking at a giant segmented robotic hand half-buried in the sand, a ribbon cable snaking toward him"></div>
 </div>
 <div class="cell pad" style="padding-top:40px;padding-bottom:44px"><div class="hl">${HIGHLIGHTS.map((x) => `<a class="panel lift" href="#paper-${x.paper}" data-open="${x.paper}"><p class="mono" style="margin:0;color:var(--muted)">${h(x.kicker)}</p><p class="t">${h(x.title)}</p><p class="s">${h(x.pre)}<b>${h(x.strong)}</b>${h(x.rest)}</p></a>`).join("")}</div></div>
 <div class="cell ticker" role="note" aria-label="Published in ${h(PAPERS.map((p) => `${p.venue} ${p.year}`).join(", "))}"><div class="mq mono" aria-hidden="true">${tickerRun}${tickerRun}</div></div>
