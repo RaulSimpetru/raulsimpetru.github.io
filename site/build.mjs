@@ -312,6 +312,14 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
   .tline{padding-right:16px}
   .foot{padding:40px 16px 24px}
   .postmark{display:none}
+  /* the screen is tiny at phone width: zoom in on the stage and keep only the place line on the photo */
+  .amph{aspect-ratio:6/5}
+  .amph-in{left:-82%;top:-27%;width:264%}
+  .slide figcaption{left:3%;top:4%;max-width:none;padding:4px 7px 5px;box-shadow:2px 2px 0 var(--ink)}
+  .slide figcaption span{font-size:9px}
+  .slide figcaption b{display:none}
+  .dots{right:3%;bottom:4%;padding:3px 5px;gap:4px}
+  .dots i{width:6px;height:6px}
 }
 @media (max-width:560px){
   .paper{grid-template-columns:60px minmax(0,1fr) 36px;gap:12px}
