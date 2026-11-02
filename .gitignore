@@ -1,5 +1,4 @@
 public/
 .superpowers/
-figures/emg-bench/shots/
-figures/emg-bench/limb/
-figures/emg-bench/*.html
+# local leftovers of the old EMG bench figure
+figures/
