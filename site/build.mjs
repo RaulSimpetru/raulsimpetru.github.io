@@ -20,6 +20,8 @@ const FAVICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><re
 `;
 const ext = (href, text, cls = "") => `<a${cls ? ` class="${cls}"` : ""} href="${h(href)}" target="_blank" rel="noopener">${text}</a>`;
 const CV = "uploads/raul-simpetru-cv.pdf";
+const SITE = "https://raulsimpetru.github.io/";
+const DESC = "Neural interfaces that read what a hand is trying to do. Research, papers and software by Raul C. Sîmpetru.";
 const ROMAN = ["I", "II", "III", "IV", "V"];
 const TAG = (p) => ({ "J. Neural Eng.": "JNE", "Science Advances": "Sci. Adv." }[p.venue] || p.venue);
 const PUB = (p) => (p.pub === "Science" ? p.venue : p.pub === "Preprint" ? `${p.venue} preprint` : `${p.pub} ${p.venue}`);
@@ -542,7 +544,21 @@ const html = `<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Raul C. Sîmpetru</title>
 <meta name="google-site-verification" content="VmtRNw8fHQ_VhBbs_c3irGke6hFKhQJFwGw5D7xUJl0">
-<meta name="description" content="Neural interfaces that read what a hand is trying to do. Research, papers and software by Raul C. Sîmpetru.">
+<meta name="description" content="${h(DESC)}">
+<link rel="canonical" href="${SITE}">
+<!-- link previews (WhatsApp, Signal, LinkedIn, X, Slack): title, description and a 1200x630 card -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Raul C. Sîmpetru">
+<meta property="og:url" content="${SITE}">
+<meta property="og:title" content="Raul C. Sîmpetru · Neural interfaces for hand control">
+<meta property="og:description" content="${h(DESC)}">
+<meta property="og:image" content="${SITE}img/og-preview.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Raul C. Sîmpetru, Neural interfaces for hand control, over a comic desert with a giant robotic hand">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@RaulCSimpetru">
 <meta name="theme-color" content="#E9DAB9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
