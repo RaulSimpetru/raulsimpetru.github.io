@@ -151,12 +151,37 @@ export const TOOLS = [
   ] },
 ];
 
-// Experience, compact: one line per fact, [main, sub, optional link]; the full CV is a link.
+// The hero's three results: the claim in words, then the number from that paper. Each opens its paper.
+export const HIGHLIGHTS = [
+  { paper: "tnsre2023", kicker: "TNSRE · 2023", title: "The whole hand, in real time", pre: "", strong: "More than 20 degrees of freedom", rest: " decoded live from forearm EMG, with under 50 ms latency." },
+  { paper: "tnsre2024", kicker: "TNSRE · 2024", title: "Control after spinal cord injury", pre: "", strong: "98.3% mean accuracy", rest: " across 8 attempted movements in 8 tetraplegic participants." },
+  { paper: "sciadv2025", kicker: "Science Advances · 2025", title: "Open software for assistive devices", pre: "With MyoGestic, ", strong: "7 participants", rest: " controlled a virtual hand, an orthosis, a prosthesis and a cursor." },
+];
+
+const TBILISI = "https://www.nsquared.tf.fau.de/2026/10/12/georgian-and-international-early-career-researchers-deliver-public-lectures-on-biomedical-engineering-at-georgian-technical-university/";
+const ISEK = "https://www.jyu.fi/en/events/isek-2026-congress";
+
+// Talk photos shown on the amphitheatre's screen, in turn.
+export const ON_SCREEN = [
+  { img: "img/speaker-wide.jpg", pos: "40% 45%", place: "Tbilisi, Georgia · 2026", title: "Public lecture at Georgian Technical University", href: TBILISI, alt: "Photo: Raul C. Sîmpetru at a lectern at Georgian Technical University in Tbilisi, presenting MyoGestic" },
+  { img: "img/event-isek2026.jpg", pos: "50% 35%", place: "Jyväskylä, Finland · June 2026", title: "Invited symposium talk at ISEK 2026", href: ISEK, alt: "Photo: Raul C. Sîmpetru at the lectern at ISEK 2026 in Jyväskylä, presenting a slide titled The neural manifold" },
+];
+
+// Experience. Current roles get their own panels; talks and recognition run along a timeline by year.
+export const NOW = [
+  { title: "Doctoral researcher", org: "n-squared lab, FAU Erlangen-Nürnberg", note: "Dr.-Ing. defence expected December 2026", live: true },
+  { title: "Invited professor", org: "Kutaisi International University", note: "Teaching neurocomputing, robotics, deep learning and DSP" },
+];
+// kind: talk | award | next; [title, where, optional link, optional month]
+export const MILESTONES = [
+  ["2023", [["award", "Young Talent Award, 3rd prize", "DMEA"], ["talk", "Selected oral talk", "The Physiological Society"]]],
+  ["2024", [["award", "Featured Article", "IEEE TBME"], ["talk", "Oral talk", "ISEK"]]],
+  ["2025", [["talk", "Rapid-fire talk", "International Motoneuron Society"]]],
+  ["2026", [["talk", "Invited symposium talk", "ISEK, Jyväskylä", ISEK, "June"], ["award", "Best Student Paper, co-author", "IEEE CBS"], ["lecture", "Muscles, Machines, and Movement", "Georgian Technical University, Tbilisi", TBILISI], ["next", "Dr.-Ing. defence", "FAU Erlangen-Nürnberg", "", "December"]]],
+];
+// The rest, compact: [main, sub] per line; the full CV is a link.
 export const FACTS = [
-  ["Now", [["Doctoral researcher", "n-squared lab, FAU Erlangen-Nürnberg"], ["Invited professor", "Kutaisi International University"]]],
   ["Before", [["Research and teaching assistant", "FAU Erlangen-Nürnberg"], ["Research assistant", "Fraunhofer IIS"]]],
-  ["Education", [["Dr.-Ing. candidate", "Defence expected December 2026"], ["MSc and BSc Medical Engineering", "FAU Erlangen-Nürnberg"]]],
+  ["Education", [["Dr.-Ing. candidate", "FAU Erlangen-Nürnberg"], ["MSc and BSc Medical Engineering", "FAU Erlangen-Nürnberg"]]],
   ["Teaching", [["Neurocomputing, robotics, deep learning, DSP", "Kutaisi International University"], ["Seminars and thesis supervision", "FAU Erlangen-Nürnberg"]]],
-  ["Recognition", [["Best Student Paper, co-author", "IEEE CBS 2026"], ["Featured Article", "IEEE TBME 2024"], ["Young Talent Award, 3rd prize", "DMEA 2023"]]],
-  ["Talks", [["Public lecture: Muscles, Machines, and Movement", "Georgian Technical University, Tbilisi 2026", "https://www.nsquared.tf.fau.de/2026/10/12/georgian-and-international-early-career-researchers-deliver-public-lectures-on-biomedical-engineering-at-georgian-technical-university/"], ["Invited symposium talk", "ISEK 2026"], ["Rapid-fire talk", "International Motoneuron Society 2025"], ["Oral talk", "ISEK 2024"], ["Selected oral talk", "The Physiological Society 2023"]]],
 ];
