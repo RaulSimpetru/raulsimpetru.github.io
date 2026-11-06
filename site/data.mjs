@@ -163,6 +163,7 @@ const ISEK = "https://www.jyu.fi/en/events/isek-2026-congress";
 
 // Talk photos shown on the amphitheatre's screen, in turn.
 export const ON_SCREEN = [
+  { img: "img/delegation-erlangen-2026.jpg", pos: "50% 50%", place: "Erlangen, Germany · 4 November 2026", title: "Visit of a delegation from China", href: "", alt: "Three panels: the delegation from China with members of the lab in front of the FAU building at Nürnberger Straße 74, the projected hand and muscle-signal grid of the lab demo, and Raul C. Sîmpetru presenting the demo at the recording rig" },
   { img: "img/speaker-wide.jpg", pos: "40% 45%", place: "Tbilisi, Georgia · 2026", title: "Public lecture at Georgian Technical University", href: TBILISI, alt: "Photo: Raul C. Sîmpetru at a lectern at Georgian Technical University in Tbilisi, presenting MyoGestic" },
   { img: "img/event-isek2026.jpg", pos: "50% 35%", place: "Jyväskylä, Finland · June 2026", title: "Invited symposium talk at ISEK 2026", href: ISEK, alt: "Photo: Raul C. Sîmpetru at the lectern at ISEK 2026 in Jyväskylä, presenting a slide titled The neural manifold" },
 ];
