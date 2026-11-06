@@ -26,18 +26,10 @@ const ROMAN = ["I", "II", "III", "IV", "V"];
 const TAG = (p) => ({ "J. Neural Eng.": "JNE", "Science Advances": "Sci. Adv." }[p.venue] || p.venue);
 const PUB = (p) => (p.pub === "Science" ? p.venue : p.pub === "Preprint" ? `${p.venue} preprint` : `${p.pub} ${p.venue}`);
 
-// The screen's slideshow, timed from the number of slides: each photo fades in over the previous one, which stays
-// fully visible until it is covered, so the screen never dims between photos.
-const SLIDE_S = 7, FADE_S = 1.2;
-const SLIDE_T = SLIDE_S * ON_SCREEN.length;
-const slideDelay = (i) => (i ? `animation-delay:-${(SLIDE_T - i * SLIDE_S) % SLIDE_T}s` : "");
-const SLIDE_CSS = (() => {
-  const w = 100 / ON_SCREEN.length, f = (FADE_S / SLIDE_T) * 100, e = 0.01, p = (x) => `${+x.toFixed(3)}%`;
-  return `.slide{animation:slide ${SLIDE_T}s ease-in-out infinite}
-.dots i{animation:dot ${SLIDE_T}s linear infinite}
-@keyframes slide{0%{opacity:0;z-index:2}${p(f)}{opacity:1;z-index:2}${p(w)}{opacity:1;z-index:2}${p(w + e)}{opacity:1;z-index:1}${p(w + f)}{opacity:1;z-index:1}${p(w + f + e)}{opacity:0;z-index:1}100%{opacity:0;z-index:1}}
-@keyframes dot{0%{background:var(--accent)}${p(w)}{background:var(--accent)}${p(w + e)}{background:var(--card)}100%{background:var(--card)}}`;
-})();
+// Seconds each photo stays on the amphitheatre's screen; the fill of the caption bar's progress line times the next one.
+const SLIDE_S = 7;
+const n2 = (n) => String(n).padStart(2, "0");
+const ARROW = (d) => `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
 
 const CSS = `
 :root{
@@ -232,15 +224,40 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 .amph-in>img{width:100%;height:auto}
 .scr-mask{position:absolute;inset:0;-webkit-mask:url(img/amphitheatre-screen-mask.png) 0 0/100% 100% no-repeat;mask:url(img/amphitheatre-screen-mask.png) 0 0/100% 100% no-repeat}
 .scr{position:absolute;left:34.5%;top:21%;width:30.3%;height:31.6%;border:2px solid var(--ink);border-radius:4px;overflow:hidden;background:var(--ink);box-shadow:0 0 0 5px var(--card),0 0 0 6.5px var(--ink)}
-.slide{position:absolute;inset:0;margin:0;opacity:0}
+/* each photo fades in over the previous one, which stays fully visible until it is covered, so the screen never dims */
+.slide{position:absolute;inset:0;margin:0;opacity:0;z-index:1;transition:opacity 1.2s ease-in-out 1.2s}
+.slide.on{opacity:1;z-index:2;transition-delay:0s}
 .slide img{width:100%;height:100%;object-fit:cover;filter:sepia(.16) saturate(.92) contrast(1.02)}
-.slide figcaption{position:absolute;left:3.5%;top:6%;display:flex;flex-direction:column;gap:3px;max-width:68%;padding:7px 10px 8px;background:var(--ochre);border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
-.slide figcaption span{font-family:var(--mono);font-size:clamp(8px,.75vw,11px);letter-spacing:.08em;text-transform:uppercase}
-.slide figcaption b{font-size:clamp(11px,1.15vw,16px);line-height:1.2;font-weight:600}
-.dots{position:absolute;z-index:3;right:3.5%;bottom:6%;display:flex;gap:6px;padding:5px 7px;background:var(--card);border:1.5px solid var(--ink);border-radius:999px}
-.dots i{display:block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink);background:var(--card)}
-${SLIDE_CSS}
-.onscreen{padding:18px 40px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;background:var(--cell-2)}
+/* the caption bar under the screen: what is on it, a link, and arrows to step through; its notch points at the screen */
+.onscreen{display:grid;grid-template-columns:minmax(max-content,1fr) minmax(0,540px) minmax(max-content,1fr);align-items:center;gap:20px;padding:24px 40px 26px;background:var(--card);border-top:1.5px solid var(--ink)}
+.onscreen::before{content:"";position:absolute;left:50%;top:-1px;width:20px;height:20px;background:var(--card);border-left:1.5px solid var(--ink);border-top:1.5px solid var(--ink);transform:translate(-50%,-50%) rotate(45deg)}
+.os-l{display:flex;align-items:center;gap:14px}
+.os-n{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--ink-2)}
+.os-n b{font-weight:500;color:var(--ink)}
+.os-c,.os-k{display:grid}
+.os-c{margin:0;text-align:center}
+.os-i{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility .6s}
+.os-i.on{opacity:1;visibility:visible}
+.os-c .os-i{display:flex;flex-direction:column;gap:6px}
+.os-c .mono{color:var(--ink-2)}
+.os-c b{font-size:22px;line-height:1.25;font-weight:500;letter-spacing:-.01em;text-wrap:balance}
+.os-r{display:flex;align-items:center;justify-content:flex-end;gap:16px}
+.os-k{justify-items:end}
+.os-k .lk{white-space:nowrap}
+.os-b{display:flex;gap:8px}
+.os-b button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;background:var(--ochre);border:1.5px solid var(--ink);border-radius:50%;box-shadow:2px 2px 0 var(--ink);color:var(--ink);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
+.os-b button:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.os-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--cell-2)}
+.os-bar i{display:block;width:0;height:100%;background:var(--accent)}
+.os-bar i.run{animation:fill ${SLIDE_S}s linear forwards}
+.amph:hover+.onscreen .os-bar i,.onscreen:hover .os-bar i,.onscreen:has(:focus-visible) .os-bar i{animation-play-state:paused}
+@keyframes fill{to{width:100%}}
+/* too narrow to centre the caption under the screen: arrows beside the label, caption and link below */
+@media (max-width:1100px){
+  .onscreen{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"l b" "c c" "k k";gap:12px}
+  .os-l{grid-area:l}.os-c{grid-area:c;text-align:left}.os-r{display:contents}.os-b{grid-area:b}
+  .os-k{grid-area:k;justify-items:start}
+}
 .now{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
 .now article{padding:26px 28px 24px;display:flex;flex-direction:column;gap:10px}
 .now .cap{background:var(--sky)}
@@ -327,14 +344,11 @@ ${SLIDE_CSS}
   .tline{padding-right:16px}
   .foot{padding:40px 16px 24px}
   .postmark{display:none}
-  /* the screen is tiny at phone width: zoom in on the stage and keep only the place line on the photo */
+  /* the screen is tiny at phone width: zoom in on the stage */
   .amph{aspect-ratio:6/5}
   .amph-in{left:-82%;top:-27%;width:264%}
-  .slide figcaption{left:3%;top:4%;max-width:none;padding:4px 7px 5px;box-shadow:2px 2px 0 var(--ink)}
-  .slide figcaption span{font-size:9px}
-  .slide figcaption b{display:none}
-  .dots{right:3%;bottom:4%;padding:3px 5px;gap:4px}
-  .dots i{width:6px;height:6px}
+  .onscreen{padding-top:18px;padding-bottom:22px}
+  .os-c b{font-size:20px}
 }
 @media (max-width:560px){
   .paper{grid-template-columns:60px minmax(0,1fr) 36px;gap:12px}
@@ -349,10 +363,10 @@ ${SLIDE_CSS}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .ld,.cloud,.rock,.dot-live,.mq,.slide,.dots i{animation:none}
+  .ld,.cloud,.rock,.dot-live,.mq{animation:none}
   .cloud,.mq{transform:none}
-  .slide:first-of-type{opacity:1}
-  .dots i:first-child{background:var(--accent)}
+  .slide,.os-i{transition:none}
+  .os-bar{display:none}
   .leaf,.pp,.chev,.postcard,.lift{transition:none}
 }
 `;
@@ -449,9 +463,15 @@ const experience = `<div class="cell stk" id="experience">${X}
 ${secHead("06", "Experience", "Research, teaching, talks.", ext(CV, "The full CV (PDF) ↗", "lk"))}
 <div class="cell amph"><div class="amph-in">
 <img src="img/amphitheatre.webp" width="1728" height="976" loading="lazy" alt="Clean-line comic amphitheatre carved into terracotta rock: a cloaked speaker stands in front of a large stone screen while an audience in cloaks, seen from behind, listens">
-<div class="scr-mask"><div class="scr">${ON_SCREEN.map((s) => `<figure class="slide" style="${slideDelay(ON_SCREEN.indexOf(s))}"><img src="${s.img}" alt="${h(s.alt)}" loading="lazy" style="object-position:${s.pos}"><figcaption><span>${h(s.place)}</span><b>${h(s.title)}</b></figcaption></figure>`).join("")}<span class="dots" aria-hidden="true">${ON_SCREEN.map((_, i) => `<i style="${slideDelay(i)}"></i>`).join("")}</span></div></div>
+<div class="scr-mask"><div class="scr">${ON_SCREEN.map((s, i) => `<figure class="slide${i ? "" : " on"}"><img src="${s.img}" alt="${h(s.alt)}" loading="lazy" style="object-position:${s.pos}"></figure>`).join("")}</div></div>
 </div></div>
-<div class="cell onscreen"><span class="cap">On screen</span>${ON_SCREEN.map((s) => (s.href ? ext(s.href, `${h(s.title)} ↗`, "lk") : `<span class="mono" style="color:var(--ink)">${h(s.title)}</span>`)).join("")}</div>
+<div class="cell onscreen" data-onscreen>
+<div class="os-l"><span class="cap">On screen</span><span class="os-n"><b>01</b> / ${n2(ON_SCREEN.length)}</span></div>
+<p class="os-c" aria-live="off">${ON_SCREEN.map((s, i) => `<span class="os-i${i ? "" : " on"}"><span class="mono">${h(s.place)}</span><b>${h(s.title)}</b></span>`).join("")}</p>
+<div class="os-r"><div class="os-k">${ON_SCREEN.map((s, i) => `<span class="os-i${i ? "" : " on"}">${s.href ? ext(s.href, `${h(s.link)} ↗`, "lk") : ""}</span>`).join("")}</div>
+<div class="os-b"><button type="button" data-step="-1" aria-label="Previous photo">${ARROW("M10 3 5 8l5 5")}</button><button type="button" data-step="1" aria-label="Next photo">${ARROW("M6 3l5 5-5 5")}</button></div></div>
+<span class="os-bar" aria-hidden="true"><i class="run"></i></span>
+</div>
 <div class="cell pad" style="padding-top:40px;padding-bottom:44px"><div class="now">${NOW.map((r) => `<article class="panel"><span class="cap">Now</span><h3>${h(r.title)}</h3><p>${h(r.org)}</p><p class="mono">${r.live ? `<span class="dot-live"></span>` : ""}${h(r.note)}</p></article>`).join("")}</div></div>
 <div class="cell trail-cell">
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px"><h3 style="font-size:26px;font-weight:500">Talks and recognition</h3><span class="legend mono"><span>${ICON.talk}Talk</span><span>${ICON.award}Recognition</span></span></div>
@@ -545,6 +565,26 @@ copy?.addEventListener("click", async () => {
   catch { getSelection().selectAllChildren(document.querySelector(".mail a")); copy.textContent = "Selected"; }
   setTimeout(() => (copy.textContent = label), 1800);
 });
+// The amphitheatre's screen: the arrows step through the photos; when the progress line under the caption fills, the
+// next photo comes up (the line pauses while the pointer is on the screen or the bar, and is off with reduced motion).
+const os = document.querySelector("[data-onscreen]");
+if (os) {
+  const slides = [...document.querySelectorAll(".slide")], items = [...os.querySelectorAll(".os-i")], k = slides.length;
+  const num = os.querySelector(".os-n b"), fill = os.querySelector(".os-bar i");
+  let at = 0;
+  const show = (n) => {
+    at = (n + k) % k;
+    slides.forEach((s, j) => s.classList.toggle("on", j === at));
+    items.forEach((s, j) => s.classList.toggle("on", j % k === at));
+    num.textContent = String(at + 1).padStart(2, "0");
+    fill.classList.remove("run"); void fill.offsetWidth; fill.classList.add("run");
+  };
+  fill.addEventListener("animationend", () => show(at + 1));
+  for (const b of os.querySelectorAll("[data-step]")) b.addEventListener("click", () => {
+    os.querySelector(".os-c").setAttribute("aria-live", "polite");
+    show(at + Number(b.dataset.step));
+  });
+}
 // A link to a paper opens it.
 const hashPaper = location.hash.match(/^#paper-(\\w+)$/);
 if (hashPaper && document.querySelector('.paper[data-paper="' + hashPaper[1] + '"]')) openPaper(hashPaper[1]);
