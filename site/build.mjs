@@ -26,6 +26,19 @@ const ROMAN = ["I", "II", "III", "IV", "V"];
 const TAG = (p) => ({ "J. Neural Eng.": "JNE", "Science Advances": "Sci. Adv." }[p.venue] || p.venue);
 const PUB = (p) => (p.pub === "Science" ? p.venue : p.pub === "Preprint" ? `${p.venue} preprint` : `${p.pub} ${p.venue}`);
 
+// The screen's slideshow, timed from the number of slides: each photo fades in over the previous one, which stays
+// fully visible until it is covered, so the screen never dims between photos.
+const SLIDE_S = 7, FADE_S = 1.2;
+const SLIDE_T = SLIDE_S * ON_SCREEN.length;
+const slideDelay = (i) => (i ? `animation-delay:-${(SLIDE_T - i * SLIDE_S) % SLIDE_T}s` : "");
+const SLIDE_CSS = (() => {
+  const w = 100 / ON_SCREEN.length, f = (FADE_S / SLIDE_T) * 100, e = 0.01, p = (x) => `${+x.toFixed(3)}%`;
+  return `.slide{animation:slide ${SLIDE_T}s ease-in-out infinite}
+.dots i{animation:dot ${SLIDE_T}s linear infinite}
+@keyframes slide{0%{opacity:0;z-index:2}${p(f)}{opacity:1;z-index:2}${p(w)}{opacity:1;z-index:2}${p(w + e)}{opacity:1;z-index:1}${p(w + f)}{opacity:1;z-index:1}${p(w + f + e)}{opacity:0;z-index:1}100%{opacity:0;z-index:1}}
+@keyframes dot{0%{background:var(--accent)}${p(w)}{background:var(--accent)}${p(w + e)}{background:var(--card)}100%{background:var(--card)}}`;
+})();
+
 const CSS = `
 :root{
   --ground:#E9DAB9;--cell:#F7EED9;--cell-2:#F3E6C8;--card:#FBF5E6;--rule:#D9C6A2;--dash:#C9B48E;
@@ -219,15 +232,14 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 .amph-in>img{width:100%;height:auto}
 .scr-mask{position:absolute;inset:0;-webkit-mask:url(img/amphitheatre-screen-mask.png) 0 0/100% 100% no-repeat;mask:url(img/amphitheatre-screen-mask.png) 0 0/100% 100% no-repeat}
 .scr{position:absolute;left:34.5%;top:21%;width:30.3%;height:31.6%;border:2px solid var(--ink);border-radius:4px;overflow:hidden;background:var(--ink);box-shadow:0 0 0 5px var(--card),0 0 0 6.5px var(--ink)}
-.slide{position:absolute;inset:0;margin:0;opacity:0;animation:slide 14s ease-in-out infinite}
+.slide{position:absolute;inset:0;margin:0;opacity:0}
 .slide img{width:100%;height:100%;object-fit:cover;filter:sepia(.16) saturate(.92) contrast(1.02)}
 .slide figcaption{position:absolute;left:3.5%;top:6%;display:flex;flex-direction:column;gap:3px;max-width:68%;padding:7px 10px 8px;background:var(--ochre);border:1.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
 .slide figcaption span{font-family:var(--mono);font-size:clamp(8px,.75vw,11px);letter-spacing:.08em;text-transform:uppercase}
 .slide figcaption b{font-size:clamp(11px,1.15vw,16px);line-height:1.2;font-weight:600}
-.dots{position:absolute;right:3.5%;bottom:6%;display:flex;gap:6px;padding:5px 7px;background:var(--card);border:1.5px solid var(--ink);border-radius:999px}
-.dots i{display:block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink);background:var(--card);animation:dot 14s ease-in-out infinite}
-@keyframes slide{0%{opacity:0}8%{opacity:1}46%{opacity:1}54%{opacity:0}100%{opacity:0}}
-@keyframes dot{0%,4%{background:var(--card)}8%,46%{background:var(--accent)}54%,100%{background:var(--card)}}
+.dots{position:absolute;z-index:3;right:3.5%;bottom:6%;display:flex;gap:6px;padding:5px 7px;background:var(--card);border:1.5px solid var(--ink);border-radius:999px}
+.dots i{display:block;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink);background:var(--card)}
+${SLIDE_CSS}
 .onscreen{padding:18px 40px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;background:var(--cell-2)}
 .now{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
 .now article{padding:26px 28px 24px;display:flex;flex-direction:column;gap:10px}
@@ -437,9 +449,9 @@ const experience = `<div class="cell stk" id="experience">${X}
 ${secHead("06", "Experience", "Research, teaching, talks.", ext(CV, "The full CV (PDF) ↗", "lk"))}
 <div class="cell amph"><div class="amph-in">
 <img src="img/amphitheatre.webp" width="1728" height="976" loading="lazy" alt="Clean-line comic amphitheatre carved into terracotta rock: a cloaked speaker stands in front of a large stone screen while an audience in cloaks, seen from behind, listens">
-<div class="scr-mask"><div class="scr">${ON_SCREEN.map((s) => `<figure class="slide" style="${ON_SCREEN.indexOf(s) ? `animation-delay:-${(14 / ON_SCREEN.length) * ON_SCREEN.indexOf(s)}s` : ""}"><img src="${s.img}" alt="${h(s.alt)}" loading="lazy" style="object-position:${s.pos}"><figcaption><span>${h(s.place)}</span><b>${h(s.title)}</b></figcaption></figure>`).join("")}<span class="dots" aria-hidden="true">${ON_SCREEN.map((_, i) => `<i${i ? ` style="animation-delay:-${(14 / ON_SCREEN.length) * i}s"` : ""}></i>`).join("")}</span></div></div>
+<div class="scr-mask"><div class="scr">${ON_SCREEN.map((s) => `<figure class="slide" style="${slideDelay(ON_SCREEN.indexOf(s))}"><img src="${s.img}" alt="${h(s.alt)}" loading="lazy" style="object-position:${s.pos}"><figcaption><span>${h(s.place)}</span><b>${h(s.title)}</b></figcaption></figure>`).join("")}<span class="dots" aria-hidden="true">${ON_SCREEN.map((_, i) => `<i style="${slideDelay(i)}"></i>`).join("")}</span></div></div>
 </div></div>
-<div class="cell onscreen"><span class="cap">On screen</span>${ON_SCREEN.map((s) => ext(s.href, `${h(s.title)} ↗`, "lk")).join("")}</div>
+<div class="cell onscreen"><span class="cap">On screen</span>${ON_SCREEN.map((s) => (s.href ? ext(s.href, `${h(s.title)} ↗`, "lk") : `<span class="mono" style="color:var(--ink)">${h(s.title)}</span>`)).join("")}</div>
 <div class="cell pad" style="padding-top:40px;padding-bottom:44px"><div class="now">${NOW.map((r) => `<article class="panel"><span class="cap">Now</span><h3>${h(r.title)}</h3><p>${h(r.org)}</p><p class="mono">${r.live ? `<span class="dot-live"></span>` : ""}${h(r.note)}</p></article>`).join("")}</div></div>
 <div class="cell trail-cell">
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px"><h3 style="font-size:26px;font-weight:500">Talks and recognition</h3><span class="legend mono"><span>${ICON.talk}Talk</span><span>${ICON.award}Recognition</span></span></div>
