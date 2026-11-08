@@ -89,6 +89,8 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 .lab-stage{position:absolute;inset:0}
 .lab-stage>img:first-child{width:100%;height:100%}
 .lab-ring{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.lab-ring circle{animation:march 1.4s linear infinite}
+@keyframes march{to{stroke-dashoffset:-18}}
 .lab-zoom{position:absolute;left:3.53%;top:36.99%;width:17.64%;aspect-ratio:1;border:2px solid var(--ink);border-radius:50%;box-shadow:0 0 0 5px var(--card),0 0 0 6.5px var(--ink)}
 .lab-cap{position:absolute;z-index:2;left:2.82%;top:4.39%;width:52.9%;padding:1.59cqw 2.29cqw 2.29cqw;display:flex;flex-direction:column;gap:1.06cqw;background:var(--ochre);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink)}
 .lab-cap p{margin:0;display:flex;align-items:center;gap:8px}
@@ -396,7 +398,7 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .ld,.cloud,.dot-live,.mq{animation:none}
+  .ld,.cloud,.dot-live,.mq,.lab-ring circle{animation:none}
   .cloud,.mq{transform:none}
   .slide,.os-i{transition:none}
   .os-bar{display:none}
@@ -421,7 +423,7 @@ const CLOUD_A = `<svg class="cloud" aria-hidden="true" viewBox="0 0 220 60" styl
 const CLOUD_B = `<svg class="cloud b" aria-hidden="true" viewBox="0 0 160 46" style="top:2%;width:14%;height:auto"><path d="M10 40h138c6 0 9-9 1-12 1-9-9-13-16-9-3-9-16-12-23-4-6-10-25-10-31 2-9-3-18 3-16 10-10-1-19 5-16 10-6 0-8 3-6 3z" fill="#E7DDF0" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
 const venues = PAPERS.map((p) => `${p.venue} ${p.year}`).concat(["MyoGestic", "MyoGen"]);
 const tickerRun = `<span>${venues.map((v) => `<span>${h(v)}</span><i>◆</i>`).join("")}</span>`;
-// A dashed ring around the drawn hand and a short line out to the close-up, in the drawing's own 1134 x 638 frame.
+// A dashed ring around the drawn hand (its dashes march) and a short line out to the close-up, in the drawing's own 1134 x 638 frame.
 const RING = `<svg class="lab-ring" viewBox="0 0 1134 638" preserveAspectRatio="none" aria-hidden="true"><circle cx="310" cy="400" r="26" fill="none" stroke="#2A2522" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/><path d="M286 390 245 373" fill="none" stroke="#2A2522" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;
 const hero = `<div class="cell stk hero" id="top">${X}
 <div class="lab">
