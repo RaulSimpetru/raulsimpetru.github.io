@@ -128,8 +128,15 @@ export const CAST = [
 ];
 
 export const SOFTWARE = [
-  { name: "MyoGestic", logo: "img/logo-myogestic.png", text: "Real-time myocontrol software with decoder calibration during participant sessions.", role: "Co-creator and core developer · v2.0, 2026", links: [["Docs", "https://nsquaredlab.github.io/MyoGestic/"], ["GitHub", "https://github.com/NsquaredLab/MyoGestic"], ["Zenodo", "https://doi.org/10.5281/zenodo.20257631"]] },
-  { name: "MyoGen", logo: "img/logo-myogen.png", text: "Biophysical simulation from neural drive to EMG.", role: "Author and maintainer · v0.11.0", install: "pip install myogen", links: [["Docs", "https://nsquaredlab.github.io/MyoGen/"], ["GitHub", "https://github.com/NsquaredLab/MyoGen"]] },
+  {
+    name: "MyoGestic", logo: "img/logo-myogestic.png", text: "Real-time myocontrol software with decoder calibration during participant sessions.",
+    // MyoGestic is more than one repository; each part has its own role and links.
+    parts: [
+      { name: "MyoGestic", kind: "Framework · Python", text: "Records, trains decoders and controls in real time.", role: "Co-creator and core developer · v2.7.0", links: [["Docs", "https://nsquaredlab.github.io/MyoGestic/"], ["GitHub", "https://github.com/NsquaredLab/MyoGestic"], ["Zenodo", "https://doi.org/10.5281/zenodo.20257631"]] },
+      { name: "MyoGestic-VHI", kind: "3D hand · Godot/.NET", text: "Real-time 3D hand visualisation for HD-sEMG, driven over LSL and gRPC.", role: "Author and maintainer", links: [["Docs", "https://nsquaredlab.github.io/MyoGestic-VHI/"], ["GitHub", "https://github.com/NsquaredLab/MyoGestic-VHI"]] },
+    ],
+  },
+  { name: "MyoGen", logo: "img/logo-myogen.png", text: "Biophysical simulation from neural drive to EMG.", role: "Author and maintainer · v0.13.0", install: "pip install myogen", links: [["Docs", "https://nsquaredlab.github.io/MyoGen/"], ["GitHub", "https://github.com/NsquaredLab/MyoGen"]] },
 ];
 
 // Smaller tools, in two groups; links are [label, href].

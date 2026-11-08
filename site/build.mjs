@@ -231,6 +231,13 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 .sw-card .logo img{height:52px;width:auto}
 .sw-card p{margin:0;font-size:20px;line-height:1.45}
 .sw-card .role{font-size:11px;color:var(--muted)}
+.sw-card .parts{display:flex;flex-direction:column;border-top:1.5px dashed var(--dash)}
+.sw-card .part{display:flex;flex-direction:column;gap:6px;padding:16px 0;border-bottom:1.5px dashed var(--dash)}
+.sw-card .part:last-child{border-bottom:0;padding-bottom:0}
+.sw-card .pt{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px}
+.sw-card .pt b{font-size:21px;font-weight:500;letter-spacing:-.01em}
+.sw-card .pt .mono{color:var(--muted)}
+.sw-card .pd{font-size:17px;color:var(--ink-2)}
 .sw-card code{align-self:flex-start;font-family:var(--mono);font-size:14px;background:var(--ink);color:#F1E4C8;padding:10px 14px;border-radius:3px}
 .sw-card code i{font-style:normal;color:#E08A6E}
 .links{display:flex;flex-wrap:wrap;gap:18px}
@@ -488,11 +495,12 @@ ${ACTS.map((a, i) => `<div class="act"><div class="act-head"><h3>${h(a.title)}</
 </div>`;
 
 // software and tools
+const linksOf = (s) => `<div class="links">${s.links.map(([l, href]) => ext(href, `${h(l)} ↗`, "lk")).join("")}</div>`;
 const software = `<div class="cell stk" id="software">${X}
 ${secHead("Software", "Research software.", "Open source")}
 <div class="cell pad" style="background:var(--cell-2)"><div class="sw">
 <figure class="panel-k"><img src="img/workshop.webp" width="1680" height="944" loading="lazy" alt="Clean-line comic workshop under a striped awning: a cloaked figure seen from behind repairs a segmented robotic hand at a workbench, a hover-glider parked beside it"></figure>
-<div class="sw-list">${SOFTWARE.map((s) => `<article class="panel sw-card lift"><h3 class="logo">${ext(s.links[0][1], `<img src="${s.logo}" alt="${h(s.name)}">`)}</h3><p>${h(s.text)}</p><p class="role mono">${h(s.role)}</p>${s.install ? `<code><i>$</i> ${h(s.install)}</code>` : ""}<div class="links">${s.links.map(([l, href]) => ext(href, `${h(l)} ↗`, "lk")).join("")}</div></article>`).join("")}</div>
+<div class="sw-list">${SOFTWARE.map((s) => `<article class="panel sw-card lift"><h3 class="logo">${ext((s.parts ? s.parts[0] : s).links[0][1], `<img src="${s.logo}" alt="${h(s.name)}">`)}</h3><p>${h(s.text)}</p>${s.parts ? `<div class="parts">${s.parts.map((p) => `<div class="part"><p class="pt"><b>${h(p.name)}</b><span class="mono">${h(p.kind)}</span></p><p class="pd">${h(p.text)}</p><p class="role mono">${h(p.role)}</p>${linksOf(p)}</div>`).join("")}</div>` : `<p class="role mono">${h(s.role)}</p>${s.install ? `<code><i>$</i> ${h(s.install)}</code>` : ""}${linksOf(s)}`}</article>`).join("")}</div>
 </div></div>
 </div>`;
 const tools = `<div class="cell stk" id="tools">${X}
