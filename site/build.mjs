@@ -349,6 +349,13 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
   .pp-box{grid-template-columns:minmax(0,1fr)}
   .pp-fig{height:auto;max-height:260px}
   .tline li::before{top:56px}
+  /* stacked: the timeline runs on through each group title, which sits on it as a diamond */
+  .act{gap:0}
+  .act-head{position:relative;padding-left:64px}
+  .act-head::before{content:"";position:absolute;left:34px;top:-1px;bottom:0;width:2px;background:var(--ink)}
+  .act-head::after{content:"";position:absolute;left:29px;top:40px;width:12px;height:12px;box-sizing:border-box;background:var(--ochre);border:2px solid var(--ink);transform:rotate(45deg)}
+  .tl-cell+.act .act-head::before{top:46px}
+  .tline::before{bottom:-1px}
   .postcard{grid-template-columns:minmax(0,1fr);transform:none}
   .postcard:hover{transform:none}
   .pc-back::before{display:none}
@@ -362,17 +369,19 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
   .nv{flex-wrap:wrap;padding:6px 6px 6px 14px}
   .nv nav{order:3;flex-basis:100%;flex-wrap:wrap;justify-content:flex-start;gap:0 2px}
   .nv nav a{min-height:36px;padding:0 8px}
-  /* phone: the caption sits above the drawing and the drawing crops in on the speaker and the screen */
+  /* phone: the caption sits above the whole drawing; the hand close-up stays as a magnifier */
   .lab-cap{position:relative;left:auto;top:auto;width:auto;margin:20px 16px -30px;padding:14px 18px 18px;gap:10px;box-shadow:5px 5px 0 var(--ink)}
   .lab-cap h1{font-size:36px}
-  .lab-view{aspect-ratio:1.3}
-  .lab-stage{left:-32.8%;right:auto;width:136.7%}
-  .lab-ring,.lab-zoom,.lab-photo-o{display:none}
-  .lab-photo{width:96px;min-width:0}
+  .lab-zoom{border-width:1.5px;box-shadow:0 0 0 3px var(--card),0 0 0 4px var(--ink)}
+  .lab-photo-o{display:none}
+  .lab-photo{width:72px;min-width:0}
   .hero-bar{padding:22px 20px 26px}
   .hero-bar .lede{font-size:18px}
   .pad,.onscreen,.tl-cell,.trail-cell,.cast-cell{padding-left:20px;padding-right:20px}
-  .act-head{padding:24px 20px 0}
+  .act-head{padding:24px 16px 0 52px}
+  .act-head::before{left:22px}
+  .act-head::after{left:17px;top:32px}
+  .tl-cell+.act .act-head::before{top:38px}
   .tline{padding-left:52px}
   .tline::before{left:22px}
   .tline{padding-right:16px}
@@ -392,6 +401,9 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
   .paper .b{font-size:16px}
   .tline{padding-left:40px}
   .tline::before{left:16px}
+  .act-head{padding-left:40px}
+  .act-head::before{left:16px}
+  .act-head::after{left:11px}
   .tline li::before{left:-30px;top:44px}
   .badge{left:-6px;bottom:-6px;font-size:9px;padding:2px 5px}
 }
