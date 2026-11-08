@@ -2,7 +2,7 @@
 import { cpSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PAPERS, ACTS, QUESTIONS, CAST, SOFTWARE, TOOLS, FACTS, HIGHLIGHTS, ON_SCREEN, NOW, MILESTONES } from "./data.mjs";
+import { PAPERS, ACTS, QUESTIONS, CAST, SOFTWARE, TOOLS, FACTS, HIGHLIGHTS, HERO, ON_SCREEN, NOW, MILESTONES } from "./data.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, "../public");
@@ -83,25 +83,49 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 .nv nav a:hover{color:#FFFFFF}
 .nv .contact{margin-left:auto;height:42px;padding:0 16px;background:var(--cell);color:var(--ink);display:flex;align-items:center;gap:8px;font-size:15px;font-weight:500;text-decoration:none;border-radius:2px;white-space:nowrap}
 
-/* hero */
-.sky{position:relative;overflow:hidden;background:var(--sky)}
-.hero-art{position:relative;overflow:hidden}
-.cloud{position:absolute;left:0;z-index:1;animation:cloud 70s linear infinite}
-.cloud.b{animation-duration:110s;animation-delay:-40s}
-@keyframes cloud{from{transform:translateX(-30%)}to{transform:translateX(130%)}}
-.rock{position:absolute;animation:bob 6s ease-in-out infinite alternate}
-.rock.b{animation-duration:8s;animation-delay:-2s}
-@keyframes bob{from{transform:translateY(0) rotate(-2deg)}to{transform:translateY(-10px) rotate(2deg)}}
-.hero-text{position:relative;z-index:2;display:flex;justify-content:space-between;gap:32px;padding:72px 64px 8px}
+/* hero: the lab demo drawing; overlays sit in % of the drawing (1134 x 638 design px) and type scales with its width */
+.lab{position:relative;container-type:inline-size;background:var(--card)}
+.lab-view{position:relative;aspect-ratio:1672/941;overflow:hidden}
+.lab-stage{position:absolute;inset:0}
+.lab-stage>img:first-child{width:100%;height:100%}
+.lab-ring{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.lab-zoom{position:absolute;left:3.53%;top:36.99%;width:17.64%;aspect-ratio:1;border:2px solid var(--ink);border-radius:50%;box-shadow:0 0 0 5px var(--card),0 0 0 6.5px var(--ink)}
+.lab-cap{position:absolute;z-index:2;left:2.82%;top:4.39%;width:52.9%;padding:1.59cqw 2.29cqw 2.29cqw;display:flex;flex-direction:column;gap:1.06cqw;background:var(--ochre);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink)}
+.lab-cap p{margin:0;display:flex;align-items:center;gap:8px}
+.lab-cap h1{font-size:4.94cqw;line-height:1;letter-spacing:-.03em}
+.lab-cap h1 em{color:var(--accent)}
+.lab-photo{position:absolute;right:1.94%;bottom:3.45%;width:16.58%;min-width:112px;padding:0;display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--ink);border-radius:3px;box-shadow:4px 4px 0 var(--ink);color:var(--ink);font:inherit;text-align:left;cursor:pointer;transition:transform .25s ease}
+.lab-photo:hover{transform:translate(-3px,-3px)}
+.lab-photo img{width:100%;aspect-ratio:16/9;object-fit:cover;border-bottom:1.5px solid var(--ink)}
+.lab-photo>span{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 8px;font-size:10px}
+.hero-bar{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:32px;padding:26px 40px 28px;background:var(--card)}
+.hero-bar .lede{margin-top:12px;max-width:600px;font-size:19px}
+.hero-bar .ctas{margin:0}
 .status{margin:0;display:inline-flex;align-items:center;gap:10px;padding:7px 14px;border:1.5px solid var(--ink);border-radius:999px;background:var(--cell)}
 .dot-live{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{margin-top:26px;font-size:clamp(46px,5.3vw,76px);line-height:1;letter-spacing:-.03em}
-.hero h1 em{color:var(--accent)}
 .lede{margin:22px 0 0;max-width:560px;font-size:21px;line-height:1.5;color:var(--ink-2)}
 .ctas{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
-.labels{display:flex;flex-direction:column;align-items:flex-end;gap:10px;text-align:right;color:var(--ink-2);padding-top:6px}
 .sq{width:7px;height:7px;background:var(--accent);display:inline-block}
+/* how the drawing was made: opened from the original photo */
+.how{width:min(620px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto;padding:16px 20px 20px;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:4px;box-shadow:6px 6px 0 var(--ink)}
+.how::backdrop{background:rgba(42,37,34,.45)}
+.how-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.how-head p{margin:0;display:flex;align-items:center;gap:8px}
+.how-head button{width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;background:var(--ochre);border:1.5px solid var(--ink);border-radius:50%;box-shadow:2px 2px 0 var(--ink);color:var(--ink);cursor:pointer}
+.how>img{border:1.5px solid var(--ink);border-radius:3px}
+.how dl{margin:14px 0;display:grid;grid-template-columns:84px minmax(0,1fr);gap:6px 14px;font-size:15px;line-height:1.45}
+.how dt{padding-top:3px;color:var(--ink-2)}
+.how dd{margin:0}
+.how-p{max-height:280px;overflow:auto;padding:12px 14px;background:var(--cell-2);border:1px solid var(--rule);border-radius:3px}
+.how-p p{margin:0;font:400 12px/1.6 var(--mono);white-space:pre-wrap}
+.how-p p.mono{margin-bottom:6px;font-size:11px;color:var(--ink-2)}
+.how-p p+p.mono{margin-top:16px}
+/* the desert panorama that opens the papers, with clouds drifting over it */
+.pano{position:relative;overflow:hidden;background:var(--sky)}
+.cloud{position:absolute;left:0;z-index:1;animation:cloud 70s linear infinite}
+.cloud.b{animation-duration:110s;animation-delay:-40s}
+@keyframes cloud{from{transform:translateX(-30%)}to{transform:translateX(130%)}}
 .ld{animation:ld 1s cubic-bezier(.2,.7,.2,1) both}
 .d1{animation-delay:.05s}.d2{animation-delay:.18s}.d3{animation-delay:.32s}.d4{animation-delay:.46s}
 @keyframes ld{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -319,7 +343,8 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 }
 @media (max-width:900px){
   .hl,.areas,.sw,.act,.now,.lists{grid-template-columns:minmax(0,1fr)}
-  .area .tail,.labels,.rock{display:none}
+  .area .tail{display:none}
+  .hero-bar{grid-template-columns:minmax(0,1fr);gap:20px}
   .pp-box{grid-template-columns:minmax(0,1fr)}
   .pp-fig{height:auto;max-height:260px}
   .tline li::before{top:56px}
@@ -336,7 +361,15 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
   .nv{flex-wrap:wrap;padding:6px 6px 6px 14px}
   .nv nav{order:3;flex-basis:100%;flex-wrap:wrap;justify-content:flex-start;gap:0 2px}
   .nv nav a{min-height:36px;padding:0 8px}
-  .hero-text{padding:48px 20px 8px}
+  /* phone: the caption sits above the drawing and the drawing crops in on the speaker and the screen */
+  .lab-cap{position:relative;left:auto;top:auto;width:auto;margin:20px 16px -30px;padding:14px 18px 18px;gap:10px;box-shadow:5px 5px 0 var(--ink)}
+  .lab-cap h1{font-size:36px}
+  .lab-view{aspect-ratio:1.3}
+  .lab-stage{left:-32.8%;right:auto;width:136.7%}
+  .lab-ring,.lab-zoom,.lab-photo-o{display:none}
+  .lab-photo{width:96px;min-width:0}
+  .hero-bar{padding:22px 20px 26px}
+  .hero-bar .lede{font-size:18px}
   .pad,.onscreen,.tl-cell,.trail-cell,.cast-cell{padding-left:20px;padding-right:20px}
   .act-head{padding:24px 20px 0}
   .tline{padding-left:52px}
@@ -363,11 +396,11 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .ld,.cloud,.rock,.dot-live,.mq{animation:none}
+  .ld,.cloud,.dot-live,.mq{animation:none}
   .cloud,.mq{transform:none}
   .slide,.os-i{transition:none}
   .os-bar{display:none}
-  .leaf,.pp,.chev,.postcard,.lift{transition:none}
+  .leaf,.pp,.chev,.postcard,.lift,.lab-photo{transition:none}
 }
 `;
 
@@ -386,21 +419,21 @@ const secHead = (n, label, title, right) => `<div class="sec-head"><div class="s
 // hero
 const CLOUD_A = `<svg class="cloud" aria-hidden="true" viewBox="0 0 220 60" style="top:0.5%;width:19%;height:auto"><path d="M14 52h188c8 0 12-12 2-16 2-12-12-18-22-12-4-12-22-16-32-6-8-14-34-14-42 2-12-4-24 4-22 14-14-2-26 6-22 14-8 0-10 4-8 4z" fill="#F7EED9" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
 const CLOUD_B = `<svg class="cloud b" aria-hidden="true" viewBox="0 0 160 46" style="top:2%;width:14%;height:auto"><path d="M10 40h138c6 0 9-9 1-12 1-9-9-13-16-9-3-9-16-12-23-4-6-10-25-10-31 2-9-3-18 3-16 10-10-1-19 5-16 10-6 0-8 3-6 3z" fill="#E7DDF0" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
-const ROCKS = `<svg class="rock" aria-hidden="true" viewBox="0 0 60 44" style="right:7%;top:262px;width:60px;height:44px"><path d="M6 14l18-10 26 4 6 12-10 14-22 6-18-8z" fill="#A994C6" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/><path d="M6 14l20 8 30-2M26 22l-4 18" fill="none" stroke="#2A2522" stroke-width="1.1"/></svg><svg class="rock b" aria-hidden="true" viewBox="0 0 40 52" style="right:19%;top:318px;width:34px;height:44px"><path d="M8 6l20-2 8 14-4 26-16 4-10-14z" fill="#C98B6E" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6l12 16 16-4M20 22l-4 26" fill="none" stroke="#2A2522" stroke-width="1.1"/></svg>`;
 const venues = PAPERS.map((p) => `${p.venue} ${p.year}`).concat(["MyoGestic", "MyoGen"]);
 const tickerRun = `<span>${venues.map((v) => `<span>${h(v)}</span><i>◆</i>`).join("")}</span>`;
+// A dashed ring around the drawn hand and a short line out to the close-up, in the drawing's own 1134 x 638 frame.
+const RING = `<svg class="lab-ring" viewBox="0 0 1134 638" preserveAspectRatio="none" aria-hidden="true"><circle cx="310" cy="400" r="26" fill="none" stroke="#2A2522" stroke-width="2" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/><path d="M286 390 245 373" fill="none" stroke="#2A2522" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>`;
 const hero = `<div class="cell stk hero" id="top">${X}
-<div class="sky">${ROCKS}
-<div class="hero-text">
-<div style="max-width:780px">
-<p class="status mono ld d1"><span class="dot-live"></span>Dr.-Ing. defence expected December 2026</p>
-<h1 class="ld d2">Neural interfaces for hand <em>control.</em></h1>
-<p class="lede ld d3">I build neural interfaces that turn muscle activity into control of virtual hands, orthoses and prostheses.</p>
+<div class="lab">
+<div class="lab-cap ld d1"><p class="mono"><span class="sq"></span>n-squared lab · FAU · Erlangen</p><h1>Neural interfaces for hand <em>control.</em></h1></div>
+<div class="lab-view">
+<div class="lab-stage"><img src="img/lab-demo.webp" width="1672" height="941" fetchpriority="high" alt="Clean-line comic illustration of Raul C. Sîmpetru presenting a live demo in the n-squared lab in Erlangen: he raises his hand toward a projection of motor-unit spike trains and a pixel hand with one finger lit, beside a recording rig">${RING}<img class="lab-zoom" src="img/hand-zoom.webp" width="400" height="400" loading="lazy" alt="Close-up drawing of his raised right hand with the bracelet on his wrist, the ring finger bent like the lit finger of the hand on the screen"></div>
+<button type="button" class="lab-photo" data-how aria-haspopup="dialog"><img src="${HERO.photo}" width="1600" height="900" alt="" loading="lazy"><span class="mono"><span><span class="lab-photo-o">Original </span>photo</span> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 2v8M2 6h8"/></svg></span></button>
+</div>
+</div>
+<div class="cell hero-bar">
+<div><p class="status mono ld d2"><span class="dot-live"></span>Dr.-Ing. defence expected December 2026</p><p class="lede ld d3">I build neural interfaces that turn muscle activity into control of virtual hands, orthoses and prostheses.</p></div>
 <div class="ctas ld d4"><a class="btn dark lift" href="#papers">Selected publications ${ICON.arrow}</a>${ext(CV, "Download CV", "btn light lift")}</div>
-</div>
-<div class="labels mono"><span style="display:flex;align-items:center;gap:8px"><span class="sq"></span>n-squared lab · FAU</span><span>Erlangen · Germany</span></div>
-</div>
-<div class="hero-art">${CLOUD_A}${CLOUD_B}<img src="img/desert-hero.webp" width="2208" height="944" fetchpriority="high" alt="Clean-line comic illustration of a pastel desert: Raul, seen from behind in a linen shirt, scarf, satchel and desert boots with a bamboo staff, stands on a dune ridge looking at a giant segmented robotic hand half-buried in the sand, a ribbon cable snaking toward him"></div>
 </div>
 <div class="cell pad" style="padding-top:40px;padding-bottom:44px"><div class="hl">${HIGHLIGHTS.map((x) => `<a class="panel lift" href="#paper-${x.paper}" data-open="${x.paper}"><p class="mono" style="margin:0;color:var(--muted)">${h(x.kicker)}</p><p class="t">${h(x.title)}</p><p class="s">${h(x.pre)}<b>${h(x.strong)}</b>${h(x.rest)}</p></a>`).join("")}</div></div>
 <div class="cell ticker" role="note" aria-label="Published in ${h(PAPERS.map((p) => `${p.venue} ${p.year}`).join(", "))}"><div class="mq mono" aria-hidden="true">${tickerRun}${tickerRun}</div></div>
@@ -501,6 +534,13 @@ const footer = `<footer class="cell foot" id="contact">${X}
 </div>
 </footer>`;
 
+const howDialog = `<dialog class="how" id="how" aria-labelledby="how-t">
+<div class="how-head"><p class="mono" id="how-t"><span class="sq"></span>How this drawing was made</p><form method="dialog"><button aria-label="Close"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8"/></svg></button></form></div>
+<img src="${HERO.photo}" width="1600" height="900" loading="lazy" alt="${h(HERO.photoAlt)}">
+<dl>${HERO.how.map(([k, v]) => `<dt class="mono">${h(k)}</dt><dd>${h(v)}</dd>`).join("")}</dl>
+<div class="how-p">${HERO.prompts.map(([k, v]) => `<p class="mono">${h(k)}</p><p>${h(v)}</p>`).join("")}</div>
+</dialog>`;
+
 const PAGE_JS = `
 // Papers open in place, one at a time; chips, timeline flags and highlight cards jump to their paper and open it.
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
@@ -585,6 +625,13 @@ if (os) {
     show(at + Number(b.dataset.step));
   });
 }
+// The hero's original photo opens a note on how the drawing was made; a click outside the note closes it.
+const how = document.getElementById("how");
+document.querySelector("[data-how]")?.addEventListener("click", () => how.showModal());
+how?.addEventListener("click", (e) => {
+  const r = how.getBoundingClientRect();
+  if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) how.close();
+});
 // A link to a paper opens it.
 const hashPaper = location.hash.match(/^#paper-(\\w+)$/);
 if (hashPaper && document.querySelector('.paper[data-paper="' + hashPaper[1] + '"]')) openPaper(hashPaper[1]);
@@ -618,7 +665,7 @@ const html = `<!doctype html>
 <link rel="icon" href="favicon-32.png" sizes="32x32">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preload" as="image" href="img/desert-hero.webp" fetchpriority="high">
+<link rel="preload" as="image" href="img/lab-demo.webp" fetchpriority="high">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&display=swap">
 <style>${CSS}</style>
 </head>
@@ -635,6 +682,7 @@ const html = `<!doctype html>
 </main>
 <div class="m"></div>${footer}<div class="m"></div>
 </div></div>
+${howDialog}
 <script>${PAGE_JS}</script>
 </body>
 </html>
