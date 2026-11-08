@@ -404,7 +404,7 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
   .act-head{padding-left:40px}
   .act-head::before{left:16px}
   .act-head::after{left:11px}
-  .tline li::before{left:-30px;top:44px}
+  .tline li::before{left:-32px;top:44px}
   .badge{left:-6px;bottom:-6px;font-size:9px;padding:2px 5px}
 }
 @media (prefers-reduced-motion:reduce){
