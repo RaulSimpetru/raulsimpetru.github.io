@@ -22,7 +22,6 @@ const ext = (href, text, cls = "") => `<a${cls ? ` class="${cls}"` : ""} href="$
 const CV = "uploads/raul-simpetru-cv.pdf";
 const SITE = "https://raulsimpetru.github.io/";
 const DESC = "Neural interfaces that read what a hand is trying to do. Research, papers and software by Raul C. Sîmpetru.";
-const ROMAN = ["I", "II", "III", "IV", "V"];
 const TAG = (p) => ({ "J. Neural Eng.": "JNE", "Science Advances": "Sci. Adv." }[p.venue] || p.venue);
 const PUB = (p) => (p.pub === "Science" ? p.venue : p.pub === "Preprint" ? `${p.venue} preprint` : `${p.pub} ${p.venue}`);
 
@@ -173,7 +172,7 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 .act{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,4.2fr);gap:1px;background:var(--rule)}
 .act>*{background:var(--cell)}
 .act-head{padding:32px 28px}
-.act-head h3{margin-top:14px;font-size:24px;line-height:1.15;font-weight:500}
+.act-head h3{font-size:24px;line-height:1.15;font-weight:500}
 .tline{list-style:none;margin:0;padding:6px 36px 6px 64px;position:relative}
 .tline::before{content:"";position:absolute;left:34px;top:0;bottom:0;width:2px;background:var(--ink)}
 .tline li{position:relative;padding:26px 0;border-bottom:1.5px dashed var(--dash);scroll-margin-top:24px}
@@ -321,7 +320,7 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 .pc-back{position:relative;padding:28px 32px 30px 36px;display:flex;flex-direction:column;gap:14px}
 .pc-back::before{content:"";position:absolute;left:0;top:28px;bottom:28px;width:1.5px;background:var(--ink)}
 .pc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.pc-top h2{margin-top:10px;font-size:46px;line-height:1;letter-spacing:-.025em}
+.pc-top h2{font-size:46px;line-height:1;letter-spacing:-.025em}
 .stamp{position:relative;flex:none;width:92px;height:112px;padding:8px;background:var(--card);-webkit-mask:linear-gradient(#000,#000) content-box,radial-gradient(circle at 5px 5px,transparent 3.2px,#000 3.8px) -5px -5px/10px 10px;mask:linear-gradient(#000,#000) content-box,radial-gradient(circle at 5px 5px,transparent 3.2px,#000 3.8px) -5px -5px/10px 10px}
 .stamp>span{position:relative;display:block;width:100%;height:100%;border:1.5px solid var(--ink);overflow:hidden;background:var(--sky)}
 .stamp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 40%}
@@ -416,7 +415,7 @@ const ICON = {
   award: `<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z"/></svg>`,
   next: `<svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>`,
 };
-const secHead = (n, label, title, right) => `<div class="sec-head"><div class="side"><span class="cap">${n} · ${h(label)}</span></div><h2>${h(title)}</h2><div class="side r mono">${right}</div></div>`;
+const secHead = (label, title, right) => `<div class="sec-head"><div class="side"><span class="cap">${h(label)}</span></div><h2>${h(title)}</h2><div class="side r mono">${right}</div></div>`;
 
 // hero
 const CLOUD_A = `<svg class="cloud" aria-hidden="true" viewBox="0 0 220 60" style="top:0.5%;width:19%;height:auto"><path d="M14 52h188c8 0 12-12 2-16 2-12-12-18-22-12-4-12-22-16-32-6-8-14-34-14-42 2-12-4-24 4-22 14-14-2-26 6-22 14-8 0-10 4-8 4z" fill="#F7EED9" stroke="#2A2522" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
@@ -443,9 +442,9 @@ const hero = `<div class="cell stk hero" id="top">${X}
 
 // research areas
 const research = `<div class="cell stk" id="research">${X}
-${secHead("02", "Featured work", "Research areas.", "Three landmarks")}
+${secHead("Featured work", "Research areas.", "Three landmarks")}
 <div class="cell" style="background:#C3E3D5"><img src="img/research-landmarks.webp" width="2208" height="944" loading="lazy" alt="Clean-line comic desert with three landmarks joined by a ribbon cable: a stone hand wearing an electrode band, a robotic hand on a pedestal steered by a small traveller, and a tree shaped like a neuron"></div>
-<div class="cell pad" style="background:var(--cell-2)"><div class="areas">${QUESTIONS.map((q, i) => `<article class="panel area" aria-labelledby="q-${i}"><span class="tail" aria-hidden="true"></span><span class="cap">${ROMAN[i]} · ${h(q.label)}</span><h3 id="q-${i}">${h(q.q)}</h3><p>${h(q.answer)}</p><figure><img src="img/fig-${q.fig}.jpg" alt="${h(q.figAlt)}" loading="lazy"></figure><div class="chips">${q.papers.map((id) => `<a class="chip" href="#paper-${id}" data-open="${id}">${h(byId[id].venue)} ${h(byId[id].year)}</a>`).join("")}</div></article>`).join("\n")}</div></div>
+<div class="cell pad" style="background:var(--cell-2)"><div class="areas">${QUESTIONS.map((q, i) => `<article class="panel area" aria-labelledby="q-${i}"><span class="tail" aria-hidden="true"></span><span class="cap">${h(q.label)}</span><h3 id="q-${i}">${h(q.q)}</h3><p>${h(q.answer)}</p><figure><img src="img/fig-${q.fig}.jpg" alt="${h(q.figAlt)}" loading="lazy"></figure><div class="chips">${q.papers.map((id) => `<a class="chip" href="#paper-${id}" data-open="${id}">${h(byId[id].venue)} ${h(byId[id].year)}</a>`).join("")}</div></article>`).join("\n")}</div></div>
 </div>`;
 
 // papers
@@ -469,23 +468,23 @@ const paper = (p) => `<li id="paper-${p.id}"><button type="button" class="paper"
 </div></div></div>
 </li>`;
 const papers = `<div class="cell stk" id="papers">${X}
-${secHead("03", "Papers", "Selected publications.", "Click a paper to open it")}
+${secHead("Papers", "Selected publications.", "Click a paper to open it")}
 <div class="cell pano">${CLOUD_A}${CLOUD_B}<img src="img/desert-hero.webp" width="2208" height="944" loading="lazy" alt="Clean-line comic illustration of a pastel desert: Raul, seen from behind in a linen shirt, scarf, satchel and desert boots with a bamboo staff, stands on a dune ridge looking at a giant segmented robotic hand half-buried in the sand, a ribbon cable snaking toward him"></div>
 <div class="cell tl-cell"><div class="tl-wrap"><div class="tl" role="list" aria-label="Papers by year">${years.map((y) => `<div class="tl-col" role="listitem"><div class="tl-flags">${PAPERS.filter((p) => p.year === y).map((p) => `<a class="tl-flag" href="#paper-${p.id}" data-open="${p.id}">${h(TAG(p))}</a>`).join("")}</div><span class="tl-stem" aria-hidden="true"></span><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">${y}</span></div>`).join("")}</div></div></div>
-${ACTS.map((a, i) => `<div class="act"><div class="act-head"><span class="cap">${ROMAN[i]}</span><h3>${h(a.title)}</h3></div><div><ol class="tline">${PAPERS.filter((p) => p.act === i).map(paper).join("")}</ol></div></div>`).join("\n")}
+${ACTS.map((a, i) => `<div class="act"><div class="act-head"><h3>${h(a.title)}</h3></div><div><ol class="tline">${PAPERS.filter((p) => p.act === i).map(paper).join("")}</ol></div></div>`).join("\n")}
 <div class="cell cast-cell"><details class="cast"><summary>${CAST.length === 12 ? "Twelve" : CAST.length} more, as co-author<span class="plus" aria-hidden="true">+</span></summary><ul>${CAST.map(([y, t, who, href]) => `<li><span>${h(y)}</span><span>${href ? ext(href, h(t)) : h(t)}<em>${h(who)}</em></span></li>`).join("")}</ul></details></div>
 </div>`;
 
 // software and tools
 const software = `<div class="cell stk" id="software">${X}
-${secHead("04", "Software", "Research software.", "Open source")}
+${secHead("Software", "Research software.", "Open source")}
 <div class="cell pad" style="background:var(--cell-2)"><div class="sw">
 <figure class="panel-k"><img src="img/workshop.webp" width="1680" height="944" loading="lazy" alt="Clean-line comic workshop under a striped awning: a cloaked figure seen from behind repairs a segmented robotic hand at a workbench, a hover-glider parked beside it"></figure>
 <div class="sw-list">${SOFTWARE.map((s) => `<article class="panel sw-card lift"><h3 class="logo">${ext(s.links[0][1], `<img src="${s.logo}" alt="${h(s.name)}">`)}</h3><p>${h(s.text)}</p><p class="role mono">${h(s.role)}</p>${s.install ? `<code><i>$</i> ${h(s.install)}</code>` : ""}<div class="links">${s.links.map(([l, href]) => ext(href, `${h(l)} ↗`, "lk")).join("")}</div></article>`).join("")}</div>
 </div></div>
 </div>`;
 const tools = `<div class="cell stk" id="tools">${X}
-${secHead("05", "Tools", "Smaller tools.", "github.com/RaulSimpetru")}
+${secHead("Tools", "Smaller tools.", "github.com/RaulSimpetru")}
 <div class="cell pad"><div class="tools">${TOOLS.map((g) => `<div><h3 class="cap">${h(g.label)}</h3><div class="tool-grid">${g.items.map((t) => `<article class="panel-k tool lift"><span class="kind mono">${h(t.kind)}${t.mcp ? `<span class="mcp">MCP</span>` : ""}</span><h4>${h(t.name)}</h4><p>${h(t.line)}</p><div class="links">${t.links.map(([l, href]) => ext(href, `${h(l)} ↗`, "lk")).join("")}</div></article>`).join("")}</div></div>`).join("\n")}</div></div>
 </div>`;
 
@@ -496,7 +495,7 @@ const ev = ([kind, title, where, href, month]) => {
   return `<div class="ev ${cls}"><span class="mono">${icon}${h(label)}${month ? ` · ${h(month)}` : ""}</span><p class="ev-t">${h(title)}</p><p class="ev-s">${href ? ext(href, `${h(where)} ↗`) : h(where)}</p></div>`;
 };
 const experience = `<div class="cell stk" id="experience">${X}
-${secHead("06", "Experience", "Research, teaching, talks.", ext(CV, "The full CV (PDF) ↗", "lk"))}
+${secHead("Experience", "Research, teaching, talks.", ext(CV, "The full CV (PDF) ↗", "lk"))}
 <div class="cell amph"><div class="amph-in">
 <img src="img/amphitheatre.webp" width="1728" height="976" loading="lazy" alt="Clean-line comic amphitheatre carved into terracotta rock: a cloaked speaker stands in front of a large stone screen while an audience in cloaks, seen from behind, listens">
 <div class="scr-mask"><div class="scr">${ON_SCREEN.map((s, i) => `<figure class="slide${i ? "" : " on"}"><img src="${s.img}" alt="${h(s.alt)}" loading="lazy" style="object-position:${s.pos}"></figure>`).join("")}</div></div>
@@ -522,7 +521,7 @@ const footer = `<footer class="cell foot" id="contact">${X}
 <div class="pc-pic"><img src="img/dusk-camp.webp" width="2208" height="944" loading="lazy" alt="Clean-line comic desert at dusk: a small camp with a tent and a hover-glider, a cloaked figure by a campfire, the giant robotic hand on the horizon"><span class="cap">Erlangen · Germany</span></div>
 <div class="pc-back">
 <div class="pc-top">
-<div><span class="mono" style="color:var(--muted)">07 · Contact</span><h2>Contact</h2></div>
+<div><h2>Contact</h2></div>
 <div class="stamp" aria-hidden="true"><span><img src="img/desert-hero.webp" alt="" loading="lazy"><b>FAU</b></span></div>
 <svg class="postmark" aria-hidden="true" viewBox="0 0 150 90"><defs><path id="pm" d="M45 45 m-30 0 a30 30 0 1 1 60 0 a30 30 0 1 1 -60 0"/></defs><circle cx="45" cy="45" r="36" fill="none" stroke="#B4553F" stroke-width="1.6" opacity=".75"/><circle cx="45" cy="45" r="22" fill="none" stroke="#B4553F" stroke-width="1.2" opacity=".75"/><text font-family="Geist Mono, monospace" font-size="7.2" letter-spacing="1.2" fill="#B4553F" opacity=".85"><textPath href="#pm">ERLANGEN · N-SQUARED LAB · FAU ·</textPath></text><text x="45" y="48" text-anchor="middle" font-family="Geist Mono, monospace" font-size="9" fill="#B4553F" opacity=".85">2026</text><path d="M84 34c10-5 20 5 30 0s20 5 30 0M84 46c10-5 20 5 30 0s20 5 30 0M84 58c10-5 20 5 30 0s20 5 30 0" fill="none" stroke="#B4553F" stroke-width="1.6" opacity=".7"/></svg>
 </div>
