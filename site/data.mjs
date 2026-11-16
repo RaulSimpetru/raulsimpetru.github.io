@@ -163,6 +163,7 @@ export const HIGHLIGHTS = [
   { paper: "tnsre2023", kicker: "TNSRE · 2023", title: "The whole hand, in real time", pre: "", strong: "More than 20 degrees of freedom", rest: " decoded live from forearm EMG, with under 50 ms latency." },
   { paper: "tnsre2024", kicker: "TNSRE · 2024", title: "Control after spinal cord injury", pre: "", strong: "98.3% mean accuracy", rest: " across 8 attempted movements in 8 tetraplegic participants." },
   { paper: "sciadv2025", kicker: "Science Advances · 2025", title: "Open software for assistive devices", pre: "With MyoGestic, ", strong: "7 participants", rest: " controlled a virtual hand, an orthosis, a prosthesis and a cursor." },
+  { paper: "myogen2026", kicker: "Nat. Commun. · 2026", title: "Simulation from cortex to EMG", pre: "MyoGen generates ", strong: "decomposable surface and intramuscular EMG", rest: ", with motor-unit firing matched to human recordings." },
 ];
 
 const TBILISI = "https://www.nsquared.tf.fau.de/2026/10/12/georgian-and-international-early-career-researchers-deliver-public-lectures-on-biomedical-engineering-at-georgian-technical-university/";
