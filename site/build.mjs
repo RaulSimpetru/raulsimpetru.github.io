@@ -22,7 +22,7 @@ const ext = (href, text, cls = "") => `<a${cls ? ` class="${cls}"` : ""} href="$
 const CV = "uploads/raul-simpetru-cv.pdf";
 const SITE = "https://raulsimpetru.github.io/";
 const DESC = "Neural interfaces that read what a hand is trying to do. Research, papers and software by Raul C. Sîmpetru.";
-const TAG = (p) => ({ "J. Neural Eng.": "JNE", "Science Advances": "Sci. Adv.", "Nature Communications": "Nat. Commun." }[p.venue] || p.venue);
+const TAG = (p) => ({ "J. Neural Eng.": "JNE", "Science Advances": "Sci. Adv.", "Nature Communications": "Nature Comms" }[p.venue] || p.venue);
 const PUB = (p) => (p.pub === "Science" || p.pub === "Nature" ? p.venue : p.pub === "Preprint" ? `${p.venue} preprint` : `${p.pub} ${p.venue}`);
 
 // Seconds each photo stays on the amphitheatre's screen; the fill of the caption bar's progress line times the next one.
