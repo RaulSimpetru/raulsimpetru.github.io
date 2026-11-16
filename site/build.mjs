@@ -22,8 +22,8 @@ const ext = (href, text, cls = "") => `<a${cls ? ` class="${cls}"` : ""} href="$
 const CV = "uploads/raul-simpetru-cv.pdf";
 const SITE = "https://raulsimpetru.github.io/";
 const DESC = "Neural interfaces that read what a hand is trying to do. Research, papers and software by Raul C. Sîmpetru.";
-const TAG = (p) => ({ "J. Neural Eng.": "JNE", "Science Advances": "Sci. Adv." }[p.venue] || p.venue);
-const PUB = (p) => (p.pub === "Science" ? p.venue : p.pub === "Preprint" ? `${p.venue} preprint` : `${p.pub} ${p.venue}`);
+const TAG = (p) => ({ "J. Neural Eng.": "JNE", "Science Advances": "Sci. Adv.", "Nature Communications": "Nat. Commun." }[p.venue] || p.venue);
+const PUB = (p) => (p.pub === "Science" || p.pub === "Nature" ? p.venue : p.pub === "Preprint" ? `${p.venue} preprint` : `${p.pub} ${p.venue}`);
 
 // Seconds each photo stays on the amphitheatre's screen; the fill of the caption bar's progress line times the next one.
 const SLIDE_S = 7;
@@ -187,7 +187,7 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
 .leaf img{backface-visibility:hidden}
 .leaf-back{position:absolute;inset:0;border-radius:3px;background:var(--ochre);border:1.5px solid var(--ink);transform:rotateY(180deg);backface-visibility:hidden}
 .paper:hover .leaf,.paper:focus-visible .leaf,.paper[aria-expanded="true"] .leaf{transform:rotateY(-68deg)}
-.badge{position:absolute;left:-8px;bottom:-8px;z-index:2;background:var(--ochre);border:1.5px solid var(--ink);padding:3px 7px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.badge{position:absolute;left:-8px;bottom:-8px;z-index:2;background:var(--ochre);border:1.5px solid var(--ink);padding:3px 7px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
 .paper .txt{display:block;min-width:0}
 .paper .meta{display:block;color:var(--accent)}
 .paper .t{display:block;margin-top:6px;font-size:24px;font-weight:500;line-height:1.15;letter-spacing:-.015em;transition:color .2s ease}
@@ -412,7 +412,7 @@ h1,h2,h3,h4{margin:0;font-weight:400;text-wrap:balance}
   .act-head::before{left:16px}
   .act-head::after{left:11px}
   .tline li::before{left:-32px;top:44px}
-  .badge{left:-6px;bottom:-6px;font-size:9px;padding:2px 5px}
+  .badge{left:-6px;bottom:-6px;font-size:8px;letter-spacing:.02em;padding:2px 4px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

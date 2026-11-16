@@ -70,14 +70,14 @@ export const PAPERS = [
     ],
   },
   {
-    id: "myogen2026", headline: ["Cortex to EMG", "simulation of neural drive, muscle force, and surface and intramuscular EMG"], line: "Open-source simulation from neural drive to EMG.", act: 3, pub: "Preprint", venue: "bioRxiv", year: "2026",
+    id: "myogen2026", headline: ["Cortex to EMG", "simulation of neural drive, muscle force, and surface and intramuscular EMG"], line: "Open-source simulation from neural drive to EMG.", act: 3, pub: "Nature", venue: "Nature Communications", year: "2026",
     short: "MyoGen",
     figAlt: "Cortical neurons, interneurons, motor neurons, afferents, a Hill-type muscle, volume conductor and resulting surface and intramuscular EMG",
     title: "MyoGen: unified biophysical modeling of human neuromotor activity and resulting signals",
-    meta: "bioRxiv · January 2026",
+    meta: "Nat. Commun. 17, 11532 · November 2026 · Open access",
     me: "Raul C. Sîmpetru*", others: ", Ricardo G. Molinari*, Devon R. Rohlf, Rebeka L. Batichotti, Renato N. Watanabe, Leonardo A. Elias, Alessandro Del Vecchio (* joint first authors)",
     links: [
-      ["Preprint", "Read the preprint on bioRxiv", "https://www.biorxiv.org/content/10.64898/2026.01.01.697284v1"],
+      ["Paper · Open access", "Read it on nature.com", "https://www.nature.com/articles/s41467-026-79273-3"],
       ["Docs", "MyoGen documentation", "https://nsquaredlab.github.io/MyoGen/"],
       ["Code", "NsquaredLab/MyoGen", "https://github.com/NsquaredLab/MyoGen"],
     ],
@@ -136,7 +136,7 @@ export const SOFTWARE = [
       { name: "MyoGestic-VHI", kind: "3D hand · Godot/.NET", text: "Real-time 3D hand visualisation for HD-sEMG, driven over LSL and gRPC.", role: "Author and maintainer", links: [["Docs", "https://nsquaredlab.github.io/MyoGestic-VHI/"], ["GitHub", "https://github.com/NsquaredLab/MyoGestic-VHI"]] },
     ],
   },
-  { name: "MyoGen", logo: "img/logo-myogen.png", text: "Biophysical simulation from neural drive to EMG.", role: "Author and maintainer · v0.13.0", install: "pip install myogen", links: [["Docs", "https://nsquaredlab.github.io/MyoGen/"], ["GitHub", "https://github.com/NsquaredLab/MyoGen"]] },
+  { name: "MyoGen", logo: "img/logo-myogen.png", text: "Biophysical simulation from neural drive to EMG.", role: "Author and maintainer · v0.13.0", install: "pip install myogen", links: [["Docs", "https://nsquaredlab.github.io/MyoGen/"], ["GitHub", "https://github.com/NsquaredLab/MyoGen"], ["Paper", "https://www.nature.com/articles/s41467-026-79273-3"]] },
 ];
 
 // Smaller tools, in two groups; links are [label, href].
