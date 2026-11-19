@@ -48,7 +48,7 @@ export const PAPERS = [
     ],
   },
   {
-    id: "tnsre2024", headline: ["98.3%", "mean accuracy across 8 attempted movements, 8 tetraplegic participants"], line: "Usable muscle activity after motor-complete spinal cord injury.", act: 2, pub: "IEEE", venue: "TNSRE", year: "2024",
+    id: "tnsre2024", headline: ["98.3%", "mean accuracy across 8 attempted movements, 8 tetraplegic participants"], line: "Latent manifold analysis finds the hand movements that stay proportionally controllable.", act: 2, pub: "IEEE", venue: "TNSRE", year: "2024",
     short: "Spared motor dimensions after motor-complete spinal cord injury",
     figAlt: "Uninjured and motor-complete SCI participants, EMG and kinematics feed a deep learning model whose latent space separates gestures and groups",
     title: "Identification of spared and proportionally controllable hand motor dimensions in motor complete spinal cord injuries using latent manifold analysis",
@@ -132,11 +132,11 @@ export const SOFTWARE = [
     name: "MyoGestic", logo: "img/logo-myogestic.png", text: "Real-time myocontrol software with decoder calibration during participant sessions.",
     // MyoGestic is more than one repository; each part has its own role and links.
     parts: [
-      { name: "MyoGestic", kind: "Framework · Python", text: "Records, trains decoders and controls in real time.", role: "Co-creator and core developer · v2.7.0", links: [["Docs", "https://nsquaredlab.github.io/MyoGestic/"], ["GitHub", "https://github.com/NsquaredLab/MyoGestic"], ["Zenodo", "https://doi.org/10.5281/zenodo.20257631"]] },
+      { name: "MyoGestic", kind: "Framework · Python", text: "Records, trains decoders and controls in real time.", role: "Creator and maintainer · v2.7.0", links: [["Docs", "https://nsquaredlab.github.io/MyoGestic/"], ["GitHub", "https://github.com/NsquaredLab/MyoGestic"], ["Zenodo", "https://doi.org/10.5281/zenodo.20257631"]] },
       { name: "MyoGestic-VHI", kind: "3D hand · Godot/.NET", text: "Real-time 3D hand visualisation for HD-sEMG, driven over LSL and gRPC.", role: "Author and maintainer", links: [["Docs", "https://nsquaredlab.github.io/MyoGestic-VHI/"], ["GitHub", "https://github.com/NsquaredLab/MyoGestic-VHI"]] },
     ],
   },
-  { name: "MyoGen", logo: "img/logo-myogen.png", text: "Biophysical simulation from neural drive to EMG.", role: "Author and maintainer · v0.13.0", install: "pip install myogen", links: [["Docs", "https://nsquaredlab.github.io/MyoGen/"], ["GitHub", "https://github.com/NsquaredLab/MyoGen"], ["Paper", "https://www.nature.com/articles/s41467-026-79273-3"]] },
+  { name: "MyoGen", logo: "img/logo-myogen.png", text: "Biophysical simulation from neural drive to EMG.", role: "Creator and maintainer · v0.13.0", install: "pip install myogen", links: [["Docs", "https://nsquaredlab.github.io/MyoGen/"], ["GitHub", "https://github.com/NsquaredLab/MyoGen"], ["Paper", "https://www.nature.com/articles/s41467-026-79273-3"]] },
 ];
 
 // Smaller tools, in two groups; links are [label, href].
@@ -209,4 +209,5 @@ export const FACTS = [
   ["Before", [["Research and teaching assistant", "FAU Erlangen-Nürnberg"], ["Research assistant", "Fraunhofer IIS"]]],
   ["Education", [["Dr.-Ing. candidate", "FAU Erlangen-Nürnberg"], ["MSc and BSc Medical Engineering", "FAU Erlangen-Nürnberg"]]],
   ["Teaching", [["Neurocomputing, robotics, deep learning, DSP", "Kutaisi International University"], ["Seminars and thesis supervision", "FAU Erlangen-Nürnberg"]]],
+  ["Service", [["Early Career Researcher Committee", "ISEK", "https://isek.org/committees/"], ["Organizing committee, session chair", "IEEE CBS 2026, Munich"]]],
 ];
