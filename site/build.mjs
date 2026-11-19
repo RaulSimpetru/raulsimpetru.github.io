@@ -300,8 +300,6 @@ h1,h2,h3,h4{margin:0;font-weight:500;letter-spacing:-.015em;text-wrap:balance}
 .ev-t{margin:6px 0 0;font-size:17px;line-height:1.25;font-weight:600}
 .ev-s{margin:3px 0 0;font-size:14px;line-height:1.4;color:var(--muted)}
 .ev-s a{color:var(--accent)}
-.legend{display:flex;gap:18px;color:var(--ink-2)}
-.legend span{display:inline-flex;align-items:center;gap:6px}
 .lists{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
 .lists ul{list-style:none;margin:16px 0 0;padding:0}
 .lists li{padding:14px 0;border-top:1.5px dashed var(--dash)}
@@ -518,7 +516,7 @@ ${secHead("Research, teaching, talks", ext(CV, "The full CV (PDF) ↗", "lk"))}
 </div>
 <div class="cell pad" style="padding-top:40px;padding-bottom:44px"><div class="now">${NOW.map((r) => `<article class="panel"><span class="cap">Now</span><h3>${h(r.title)}</h3><p>${h(r.org)}</p><p class="mono">${h(r.note)}</p></article>`).join("")}</div></div>
 <div class="cell trail-cell">
-<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px"><h3 style="font-size:26px;font-weight:500">Talks and recognition</h3><span class="legend mono"><span>${ICON.talk}Talk</span><span>${ICON.award}Recognition</span></span></div>
+<h3 style="font-size:26px;font-weight:500;margin:0 0 8px">Talks and recognition</h3>
 <div class="trail-wrap"><div class="trail" role="list" aria-label="Talks and recognition by year">${MILESTONES.map(([y, items]) => `<div class="yr" role="listitem"><span class="yr-dot" aria-hidden="true"></span><span class="yr-num">${y}</span>${items.map(ev).join("")}</div>`).join("")}</div></div>
 </div>
 <div class="cell pad" style="padding-top:36px;padding-bottom:48px"><div class="lists">${FACTS.map(([k, items]) => `<div><span class="cap">${h(k)}</span><ul>${items.map(([main, sub]) => `<li><b>${h(main)}</b><span>${h(sub)}</span></li>`).join("")}</ul></div>`).join("")}</div></div>
