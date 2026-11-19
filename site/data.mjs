@@ -48,7 +48,7 @@ export const PAPERS = [
     ],
   },
   {
-    id: "tnsre2024", headline: ["98.3%", "mean accuracy across 8 attempted movements, 8 tetraplegic participants"], line: "Usable muscle activity after motor-complete spinal cord injury.", act: 2, pub: "IEEE", venue: "TNSRE", year: "2024",
+    id: "tnsre2024", headline: ["98.3%", "mean accuracy across 8 attempted movements, 8 tetraplegic participants"], line: "Latent manifold analysis finds the hand movements that stay proportionally controllable.", act: 2, pub: "IEEE", venue: "TNSRE", year: "2024",
     short: "Spared motor dimensions after motor-complete spinal cord injury",
     figAlt: "Uninjured and motor-complete SCI participants, EMG and kinematics feed a deep learning model whose latent space separates gestures and groups",
     title: "Identification of spared and proportionally controllable hand motor dimensions in motor complete spinal cord injuries using latent manifold analysis",
