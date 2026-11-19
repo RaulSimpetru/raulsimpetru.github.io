@@ -196,7 +196,7 @@ export const ON_SCREEN = [
 export const NOW = [
   { title: "Doctoral researcher", org: "n-squared lab, FAU Erlangen-Nürnberg", note: "Dr.-Ing. defence expected December 2026", live: true },
   { title: "Invited professor", org: "Kutaisi International University", note: "Teaching neurocomputing, robotics, deep learning and DSP" },
-  { title: "Early Career Researcher Council", org: "ISEK", note: "International Society of Electrophysiology and Kinesiology" },
+  { title: "Early Career Researcher Committee", org: "ISEK", note: "International Society of Electrophysiology and Kinesiology" },
 ];
 // kind: talk | award | next; [title, where, optional link, optional month]
 export const MILESTONES = [
