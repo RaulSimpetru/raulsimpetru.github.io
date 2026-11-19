@@ -209,4 +209,5 @@ export const FACTS = [
   ["Before", [["Research and teaching assistant", "FAU Erlangen-Nürnberg"], ["Research assistant", "Fraunhofer IIS"]]],
   ["Education", [["Dr.-Ing. candidate", "FAU Erlangen-Nürnberg"], ["MSc and BSc Medical Engineering", "FAU Erlangen-Nürnberg"]]],
   ["Teaching", [["Neurocomputing, robotics, deep learning, DSP", "Kutaisi International University"], ["Seminars and thesis supervision", "FAU Erlangen-Nürnberg"]]],
+  ["Service", [["Early Career Researcher Committee", "ISEK", "https://isek.org/committees/"], ["Organizing committee, session chair", "IEEE CBS 2026, Munich"]]],
 ];

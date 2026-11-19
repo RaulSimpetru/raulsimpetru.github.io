@@ -300,11 +300,12 @@ h1,h2,h3,h4{margin:0;font-weight:500;letter-spacing:-.015em;text-wrap:balance}
 .ev-t{margin:6px 0 0;font-size:17px;line-height:1.25;font-weight:600}
 .ev-s{margin:3px 0 0;font-size:14px;line-height:1.4;color:var(--muted)}
 .ev-s a{color:var(--accent)}
-.lists{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.lists{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px}
 .lists ul{list-style:none;margin:16px 0 0;padding:0}
 .lists li{padding:14px 0;border-top:1.5px dashed var(--dash)}
 .lists b{display:block;font-size:18px;font-weight:600}
 .lists span{font-size:15px;color:var(--muted)}
+.lists span a{color:var(--accent)}
 
 /* footer: a postcard */
 .foot{padding:64px 40px 32px;background:var(--cell-2);overflow:hidden}
@@ -334,7 +335,7 @@ h1,h2,h3,h4{margin:0;font-weight:500;letter-spacing:-.015em;text-wrap:balance}
 .foot-links p{margin:12px 0 0;padding-top:16px;border-top:1.5px dashed var(--dash);width:100%;font-size:15px;color:var(--muted)}
 
 @media (max-width:1080px){
-  .hl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hl,.lists{grid-template-columns:repeat(2,minmax(0,1fr))}
   .frame{grid-template-columns:24px minmax(0,1fr) 24px}
   .paper{grid-template-columns:84px minmax(0,1fr) 44px;gap:14px}
   .thumb{width:84px}
@@ -519,7 +520,7 @@ ${secHead("Research, teaching, talks", ext(CV, "The full CV (PDF) ↗", "lk"))}
 <h3 style="font-size:26px;font-weight:500;margin:0 0 8px">Talks and recognition</h3>
 <div class="trail-wrap"><div class="trail" role="list" aria-label="Talks and recognition by year">${MILESTONES.map(([y, items]) => `<div class="yr" role="listitem"><span class="yr-dot" aria-hidden="true"></span><span class="yr-num">${y}</span>${items.map(ev).join("")}</div>`).join("")}</div></div>
 </div>
-<div class="cell pad" style="padding-top:32px;padding-bottom:48px"><div class="lists">${FACTS.map(([k, items]) => `<div><span class="cap">${h(k)}</span><ul>${items.map(([main, sub]) => `<li><b>${h(main)}</b><span>${h(sub)}</span></li>`).join("")}</ul></div>`).join("")}</div></div>
+<div class="cell pad" style="padding-top:32px;padding-bottom:48px"><div class="lists">${FACTS.map(([k, items]) => `<div><span class="cap">${h(k)}</span><ul>${items.map(([main, sub, href]) => `<li><b>${h(main)}</b><span>${href ? ext(href, `${h(sub)} ↗`) : h(sub)}</span></li>`).join("")}</ul></div>`).join("")}</div></div>
 </div>`;
 
 // footer
