@@ -20,7 +20,7 @@ const FAVICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><re
 `;
 const ext = (href, text, cls = "") => `<a${cls ? ` class="${cls}"` : ""} href="${h(href)}" target="_blank" rel="noopener">${text}</a>`;
 const CV = "uploads/raul-simpetru-cv.pdf";
-const SITE = "https://raulsimpetru.github.io/";
+const SITE = "https://simpetru.com/";
 const DESC = "Neural interfaces that read what a hand is trying to do. Research, papers and software by Raul C. Sîmpetru.";
 const TAG = (p) => ({ "J. Neural Eng.": "JNE", "Science Advances": "Sci. Adv.", "Nature Communications": "Nature Comms" }[p.venue] || p.venue);
 const PUB = (p) => (p.pub === "Science" || p.pub === "Nature" ? p.venue : p.pub === "Preprint" ? `${p.venue} preprint` : `${p.pub} ${p.venue}`);
