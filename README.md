@@ -1,4 +1,4 @@
-# raulsimpetru.github.io
+# simpetru.com
 
 Personal site of Raul C. Sîmpetru: https://simpetru.com/
 
