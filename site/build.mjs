@@ -195,6 +195,8 @@ h1,h2,h3,h4{margin:0;font-weight:500;letter-spacing:-.015em;text-wrap:balance}
 .pp-fig{width:100%;height:300px;padding:14px;object-fit:contain;background:#fff;border:1.5px solid var(--ink)}
 .player{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:var(--ink);border:1.5px solid var(--ink)}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.player.tall{aspect-ratio:auto;height:400px;display:flex;justify-content:center}
+.player.tall video{height:100%;aspect-ratio:9/16;display:block;background:#000}
 .player-note{margin:8px 0 0;font-size:14px;color:var(--muted)}
 .pp-side{display:flex;flex-direction:column;min-width:0}
 .pp-head{margin:0;font-size:15px;line-height:1.45;color:var(--ink-2)}
@@ -346,6 +348,7 @@ h1,h2,h3,h4{margin:0;font-weight:500;letter-spacing:-.015em;text-wrap:balance}
   .hero-bar{grid-template-columns:minmax(0,1fr);gap:20px}
   .pp-box{grid-template-columns:minmax(0,1fr)}
   .pp-fig{height:auto;max-height:260px}
+  .player.tall{height:460px}
   .tline li::before{top:56px}
   /* stacked: the timeline runs on through each group title, which sits on it as a diamond */
   .act{gap:0}
@@ -459,6 +462,7 @@ const years = [...new Set(PAPERS.map((p) => p.year))].sort();
 const youtube = (href) => { const u = new URL(href); const id = u.searchParams.get("v"); return id ? { id, list: u.searchParams.get("list") ?? "" } : null; };
 const pill = ([kind, , href]) => {
   const k = kind.split(" · ")[0];
+  if (/\.mp4$/.test(href)) return `<button type="button" class="pill play-btn" data-src="${h(href)}">${ICON.play}<span>Play ${h(k.toLowerCase())}</span></button>`;
   const v = /^Video/.test(k) && youtube(href);
   return v
     ? `<button type="button" class="pill play-btn" data-video="${v.id}" data-list="${v.list}" data-href="${h(href)}">${ICON.play}<span>Play ${h(k.toLowerCase())}</span></button>`
@@ -569,6 +573,17 @@ for (const btn of document.querySelectorAll(".play-btn")) {
     const media = panel.querySelector(".pp-media");
     if (btn.getAttribute("aria-pressed") === "true") return stopVideo(panel);
     if (!figures.has(media)) figures.set(media, media.firstElementChild);
+    btn.setAttribute("aria-pressed", "true");
+    btn.querySelector("span").textContent = "Show the figure";
+    if (btn.dataset.src) {
+      // A portrait video of our own: shown whole, never cropped.
+      const player = document.createElement("div");
+      player.className = "player tall";
+      const video = document.createElement("video");
+      Object.assign(video, { src: btn.dataset.src, poster: btn.dataset.src.replace(/\.mp4$/, ".jpg"), controls: true, playsInline: true, autoplay: true });
+      player.append(video);
+      return media.replaceChildren(player);
+    }
     const src = "https://www.youtube-nocookie.com/embed/" + btn.dataset.video + "?autoplay=1&rel=0" + (btn.dataset.list ? "&list=" + btn.dataset.list : "");
     const player = document.createElement("div");
     player.className = "player";
@@ -579,8 +594,6 @@ for (const btn of document.querySelectorAll(".play-btn")) {
     note.innerHTML = 'Not playing? <a target="_blank" rel="noopener">Open it on YouTube ↗</a>';
     note.querySelector("a").href = btn.dataset.href;
     media.replaceChildren(player, note);
-    btn.setAttribute("aria-pressed", "true");
-    btn.querySelector("span").textContent = "Show the figure";
   });
 }
 const setOpen = (card, open) => {
