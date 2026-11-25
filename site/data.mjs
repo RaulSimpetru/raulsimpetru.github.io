@@ -78,6 +78,7 @@ export const PAPERS = [
     me: "Raul C. Sîmpetru*", others: ", Ricardo G. Molinari*, Devon R. Rohlf, Rebeka L. Batichotti, Renato N. Watanabe, Leonardo A. Elias, Alessandro Del Vecchio (* joint first authors)",
     links: [
       ["Paper · Open access", "Read it on nature.com", "https://www.nature.com/articles/s41467-026-79273-3"],
+      ["Video summary", "The paper in one minute, by Springer Nature", "img/myogen-summary.mp4"],
       ["Docs", "MyoGen documentation", "https://nsquaredlab.github.io/MyoGen/"],
       ["Code", "NsquaredLab/MyoGen", "https://github.com/NsquaredLab/MyoGen"],
     ],
