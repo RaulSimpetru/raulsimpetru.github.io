@@ -462,7 +462,7 @@ const years = [...new Set(PAPERS.map((p) => p.year))].sort();
 const youtube = (href) => { const u = new URL(href); const id = u.searchParams.get("v"); return id ? { id, list: u.searchParams.get("list") ?? "" } : null; };
 const pill = ([kind, , href]) => {
   const k = kind.split(" · ")[0];
-  if (/\.mp4$/.test(href)) return `<button type="button" class="pill play-btn" data-src="${h(href)}">${ICON.play}<span>Play ${h(k.toLowerCase())}</span></button>`;
+  if (/\.mp4$/.test(href)) return ""; // shown in the panel instead of the figure
   const v = /^Video/.test(k) && youtube(href);
   return v
     ? `<button type="button" class="pill play-btn" data-video="${v.id}" data-list="${v.list}" data-href="${h(href)}">${ICON.play}<span>Play ${h(k.toLowerCase())}</span></button>`
@@ -474,7 +474,9 @@ const paper = (p) => `<li id="paper-${p.id}"><button type="button" class="paper"
 <span class="chev">${ICON.chev}</span>
 </button>
 <div class="pp" id="panel-${p.id}" inert><div class="pp-in"><div class="pp-box panel">
-<div class="pp-media"><img class="pp-fig" src="img/fig-${p.id}.jpg" alt="${h(p.figAlt)}" loading="lazy"></div>
+<div class="pp-media">${((v) => v
+  ? `<div class="player tall"><video src="${h(v)}" poster="${h(v.replace(/\.mp4$/, ".jpg"))}" controls playsinline preload="none"></video></div>`
+  : `<img class="pp-fig" src="img/fig-${p.id}.jpg" alt="${h(p.figAlt)}" loading="lazy">`)(p.links.find((l) => /\.mp4$/.test(l[2]))?.[2])}</div>
 <div class="pp-side"><p class="pp-head"><b>${h(p.headline[0])}</b>${h(p.headline[1])}</p><div class="pills">${p.links.map(pill).join("")}</div><p class="pp-meta">${h(p.title)}. <span><b>${h(p.me)}</b>${h(p.others)}.</span> ${h(p.meta)}.</p></div>
 </div></div></div>
 </li>`;
@@ -560,6 +562,7 @@ const PAGE_JS = `
 const reduced = matchMedia("(prefers-reduced-motion: reduce)");
 const figures = new Map();
 const stopVideo = (panel) => {
+  panel.querySelector("video")?.pause();
   const media = panel.querySelector(".pp-media");
   if (figures.has(media)) media.replaceChildren(figures.get(media));
   const btn = panel.querySelector(".play-btn");
@@ -575,15 +578,6 @@ for (const btn of document.querySelectorAll(".play-btn")) {
     if (!figures.has(media)) figures.set(media, media.firstElementChild);
     btn.setAttribute("aria-pressed", "true");
     btn.querySelector("span").textContent = "Show the figure";
-    if (btn.dataset.src) {
-      // A portrait video of our own: shown whole, never cropped.
-      const player = document.createElement("div");
-      player.className = "player tall";
-      const video = document.createElement("video");
-      Object.assign(video, { src: btn.dataset.src, poster: btn.dataset.src.replace(/\.mp4$/, ".jpg"), controls: true, playsInline: true, autoplay: true });
-      player.append(video);
-      return media.replaceChildren(player);
-    }
     const src = "https://www.youtube-nocookie.com/embed/" + btn.dataset.video + "?autoplay=1&rel=0" + (btn.dataset.list ? "&list=" + btn.dataset.list : "");
     const player = document.createElement("div");
     player.className = "player";
